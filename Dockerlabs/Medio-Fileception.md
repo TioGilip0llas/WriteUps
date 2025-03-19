@@ -89,7 +89,7 @@ Solo te comento, recuerdo que usé este método porque casi nadie lo usa... o si
 
 
 [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base85('!-u',true,'z')&input=QFVYPWg/VDlvTUE3XTdoQTddOllFKypnL0dBaE00)
-![](Pasted%20image%2020250319115734.png)
+![](images/images-fileception/Pasted%20image%2020250319115734.png)
 
 `steghide --extract -sf hello_peter.jpg -p base_85_decoded_password `
 ```python
