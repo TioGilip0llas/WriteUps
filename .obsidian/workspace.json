@@ -4,39 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "60a5b48959b5a60f",
+        "id": "d6767df7ed6acc53",
         "type": "tabs",
         "children": [
           {
-            "id": "f7f550d9f54ec820",
+            "id": "86f551ea31f45ad7",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Dockerlabs/Medio-Hackpenguin.md",
+                "file": "Dockerlabs/Medio-Fileception.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Medio-Hackpenguin"
-            }
-          },
-          {
-            "id": "225665fca89bdcb2",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "PruebasScitum/Ingeniería Inversa/1.Crack/Crack.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Crack"
+              "title": "Medio-Fileception"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -93,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 298.5
+    "width": 296.5
   },
   "right": {
     "id": "021a802daf0b2663",
@@ -183,11 +168,14 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "225665fca89bdcb2",
+  "active": "86f551ea31f45ad7",
   "lastOpenFiles": [
-    "PruebasScitum/Aeromex/Reporte Técnico de Pruebas de Penetración (Aeromex).md",
-    "PruebasScitum/Ingeniería Inversa/1.Crack/Crack.md",
+    "[Pasted.md",
     "Dockerlabs/Medio-Fileception.md",
+    "Dockerlabs/images/images-fileception/Pasted image 20250319115319.png",
+    "Dockerlabs/Medio-Hackpenguin.md",
+    "PruebasScitum/Ingeniería Inversa/1.Crack/Crack.md",
+    "PruebasScitum/Aeromex/Reporte Técnico de Pruebas de Penetración (Aeromex).md",
     "Dockerlabs/Fácil-Escolares.md",
     "Dockerlabs/Fácil-Whereismywebshell.md",
     "Dockerlabs/Fácil-Walkingcms.md",
@@ -208,16 +196,12 @@
     "Dockerlabs/Medio-Pyred.md",
     "Dockerlabs/Medio-Inclusion.md",
     "Dockerlabs/Medio-Hidden.md",
-    "Dockerlabs/Medio-Hackpenguin.md",
-    "Dockerlabs/Medio-Fooding.md",
-    "Dockerlabs/Medio-Eclipse.md",
     "Dockerlabs/images",
     "Dockerlabs/images/images-fileception",
     "Dockerlabs/images/images-fileception/Pasted image 20250319123054.png",
     "Dockerlabs/images/images-fileception/Pasted image 20250319122804.png",
     "Dockerlabs/images/images-fileception/Pasted image 20250319120245.png",
     "Dockerlabs/images/images-fileception/Pasted image 20250319115734.png",
-    "Dockerlabs/images/images-fileception/Pasted image 20250319115319.png",
     "Dockerlabs/Medio/Eclipse",
     "Dockerlabs/images/images-eclipse",
     "Dockerlabs/images/images-eclipse/Pasted image 20250318215349.png",

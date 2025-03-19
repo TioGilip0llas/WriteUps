@@ -84,17 +84,19 @@ Solo te comento, recuerdo que usé este método porque casi nadie lo usa... o si
 ```
 
 [Identificador de Cifrado](https://www.dcode.fr/identificador-cifrado)
-![[Pasted image 20250319115319.png]]
+![Descripción](Pasted%20image%2020250319115319.png)
+
+
 
 [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base85('!-u',true,'z')&input=QFVYPWg/VDlvTUE3XTdoQTddOllFKypnL0dBaE00)
-![[Pasted image 20250319115734.png]]
+![](Pasted%20image%2020250319115734.png)
 
 `steghide --extract -sf hello_peter.jpg -p base_85_decoded_password `
 ```python
 anot� los datos extra�dos e/"you_find_me.txt"
 ```
 
-![[Pasted image 20250319120245.png]]
+![](Pasted%20image%2020250319120245.png)
 
 [decode Ook!](https://www.dcode.fr/ook-language) Da el siguiente código:
 `9h889h23hhss2`
@@ -124,9 +126,9 @@ Cuando era niño recuerdo que, a los videos, para pasarlos de flv a mp4, solo ca
 
 ```
 
-![[Pasted image 20250319122804.png]]
+![](Pasted%20image%2020250319122804.png)
 
-![[Pasted image 20250319123054.png]]
+![](Pasted%20image%2020250319123054.png)
 
 `$unzip importante_octopus.zip `
 ``` python
