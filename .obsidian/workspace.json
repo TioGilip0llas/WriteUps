@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Dockerlabs/Fácil-Whereismywebshell.md",
+                "file": "PruebasScitum/Ingeniería Inversa/1.Crack/Crack.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Fácil-Whereismywebshell"
+              "title": "Crack"
             }
           }
         ],
@@ -93,7 +93,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 299.5
+    "width": 298.5
   },
   "right": {
     "id": "021a802daf0b2663",
@@ -185,6 +185,11 @@
   },
   "active": "225665fca89bdcb2",
   "lastOpenFiles": [
+    "PruebasScitum/Aeromex/Reporte Técnico de Pruebas de Penetración (Aeromex).md",
+    "PruebasScitum/Ingeniería Inversa/1.Crack/Crack.md",
+    "Dockerlabs/Medio-Fileception.md",
+    "Dockerlabs/Fácil-Escolares.md",
+    "Dockerlabs/Fácil-Whereismywebshell.md",
     "Dockerlabs/Fácil-Walkingcms.md",
     "Dockerlabs/Muy Fácil-Vacaciones.md",
     "Dockerlabs/Fácil-Upload.md",
@@ -197,7 +202,6 @@
     "Dockerlabs/Muy Fácil-Injection.md",
     "Dockerlabs/Fácil-Library.md",
     "Dockerlabs/Fácil-Hiddencat.md",
-    "Dockerlabs/Fácil-Escolares.md",
     "Dockerlabs/Muy Fácil-Firsthacking.md",
     "Dockerlabs/Fácil-Chocolatelovers.md",
     "Dockerlabs/Muy Fácil-Breakmyssh.md",
@@ -207,16 +211,13 @@
     "Dockerlabs/Medio-Hackpenguin.md",
     "Dockerlabs/Medio-Fooding.md",
     "Dockerlabs/Medio-Eclipse.md",
-    "Dockerlabs/Medio-Domain.md",
-    "Dockerlabs/Fácil-Whereismywebshell.md",
     "Dockerlabs/images",
-    "Fileception.md",
-    "images-fileception",
-    "images-fileception/Pasted image 20250319123054.png",
-    "images-fileception/Pasted image 20250319122804.png",
-    "images-fileception/Pasted image 20250319120245.png",
-    "images-fileception/Pasted image 20250319115734.png",
-    "images-fileception/Pasted image 20250319115319.png",
+    "Dockerlabs/images/images-fileception",
+    "Dockerlabs/images/images-fileception/Pasted image 20250319123054.png",
+    "Dockerlabs/images/images-fileception/Pasted image 20250319122804.png",
+    "Dockerlabs/images/images-fileception/Pasted image 20250319120245.png",
+    "Dockerlabs/images/images-fileception/Pasted image 20250319115734.png",
+    "Dockerlabs/images/images-fileception/Pasted image 20250319115319.png",
     "Dockerlabs/Medio/Eclipse",
     "Dockerlabs/images/images-eclipse",
     "Dockerlabs/images/images-eclipse/Pasted image 20250318215349.png",
@@ -224,7 +225,6 @@
     "Dockerlabs/images/images-eclipse/Pasted image 20250318214422.png",
     "Dockerlabs/images/images-eclipse/Pasted image 20250318213712.png",
     "Dockerlabs/images/images-eclipse/Pasted image 20250318212838.png",
-    "PruebasScitum/Aeromex/Reporte Técnico de Pruebas de Penetración (Aeromex).md",
     "PruebasScitum/Aeromex",
     "PruebasScitum/Aeromex/images-aeromex",
     "PruebasScitum",
