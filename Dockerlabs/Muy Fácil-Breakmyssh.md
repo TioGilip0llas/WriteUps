@@ -1,10 +1,10 @@
-![[Pasted image 20250221142207.png]]
+![](images/images-breakmyssh/Pasted%20image%2020250221142207.png)
 
-![[Pasted image 20250221142151.png]]
+![](images/images-breakmyssh/Pasted%20image%2020250221142151.png)
 
-![[Pasted image 20250221144840.png]]
+![](images/images-breakmyssh/Pasted%20image%2020250221144840.png)
 
-![[Pasted image 20250221144916.png]]
+![](images/images-breakmyssh/Pasted%20image%2020250221144916.png)
 
 https://www.exploit-db.com/exploits/45233
 
@@ -156,14 +156,14 @@ else:
 file_handle.close()  # Cerrar el archivo
 ```
 
-![[Pasted image 20250221154201.png]]
+![](images/images-breakmyssh/Pasted%20image%2020250221154201.png)
 
-![[Pasted image 20250221154415.png]]
+![](images/images-breakmyssh/Pasted%20image%2020250221154415.png)
 
-![[Pasted image 20250221154604.png]]
+![](images/images-breakmyssh/Pasted%20image%2020250221154604.png)
 
-![[Pasted image 20250221155217.png]]
+![](images/images-breakmyssh/Pasted%20image%2020250221155217.png)
 Puede que sea un MD5, para crackear el hash
-![[Pasted image 20250221160519.png]]
+![](images/images-breakmyssh/Pasted%20image%2020250221160519.png)
 
-![[Pasted image 20250221160644.png]]
+![](images/images-breakmyssh/Pasted%20image%2020250221160644.png)

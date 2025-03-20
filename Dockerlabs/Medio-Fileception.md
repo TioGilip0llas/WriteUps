@@ -84,7 +84,7 @@ Solo te comento, recuerdo que usé este método porque casi nadie lo usa... o si
 ```
 
 [Identificador de Cifrado](https://www.dcode.fr/identificador-cifrado)
-![Descripción](Pasted%20image%2020250319115319.png)
+![](images/images-fileception/Pasted%20image%2020250319115319.png)
 
 
 
@@ -96,7 +96,7 @@ Solo te comento, recuerdo que usé este método porque casi nadie lo usa... o si
 anot� los datos extra�dos e/"you_find_me.txt"
 ```
 
-![](Pasted%20image%2020250319120245.png)
+![](images/images-fileception/Pasted%20image%2020250319120245.png)
 
 [decode Ook!](https://www.dcode.fr/ook-language) Da el siguiente código:
 `9h889h23hhss2`
@@ -126,9 +126,9 @@ Cuando era niño recuerdo que, a los videos, para pasarlos de flv a mp4, solo ca
 
 ```
 
-![](Pasted%20image%2020250319122804.png)
+![](images/images-fileception/Pasted%20image%2020250319122804.png)
 
-![](Pasted%20image%2020250319123054.png)
+![](images/images-fileception/Pasted%20image%2020250319123054.png)
 
 `$unzip importante_octopus.zip `
 ``` python

