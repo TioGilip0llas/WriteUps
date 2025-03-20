@@ -1,43 +1,60 @@
 #!/bin/bash
 
-# Buscar todos los archivos .md en el repositorio
-find . -name "*.md" -print0 | while IFS= read -r -d '' file; do
-    echo "Procesando: $file"
-    md_dir=$(dirname "$file")  # Directorio del archivo .md
+# Función para calcular rutas relativas (compatible con macOS y Linux)
+calculate_relative_path() {
+    local source_dir="$1"
+    local target_path="$2"
+    
+    if command -v realpath &> /dev/null; then
+        realpath --relative-to="$source_dir" "$target_path" | sed 's/ /%20/g'
+    else
+        echo "$target_path" | sed "s|^$source_dir/||; s/ /%20/g"
+    fi
+}
 
-    # Buscar TODAS las imágenes en formato Markdown estándar
-    grep -oP '!\[\]\([^\)]+\)' "$file" | sed -e 's/!\[\](//' -e 's/)$//' | while IFS= read -r img_ref; do
-        # Decodificar %20 a espacios para manejo de rutas
+# Buscar todos los archivos .md
+find . -name "*.md" -print0 | while IFS= read -r -d '' md_file; do
+    echo "Procesando: $md_file"
+    md_dir=$(dirname "$md_file")
+
+    # Extraer todas las rutas de imágenes del archivo .md
+    grep -oP '!\[\]\([^\)]+\)' "$md_file" | sed -e 's/!\[\](//' -e 's/)$//' | while IFS= read -r img_ref; do
+
+        # Decodificar URL (ej. %20 -> espacio)
         img_decoded=$(echo "$img_ref" | sed 's/%20/ /g')
         
-        # Construir ruta absoluta de la imagen
-        if [[ "$img_decoded" == /* ]]; then
-            # Si la ruta es absoluta (desde raíz)
+        # Determinar ruta absoluta según el tipo de referencia
+        if [[ "$img_decoded" == /* ]]; then          # Ruta absoluta desde raíz
             img_abs_path=".$img_decoded"
-        else
-            # Si la ruta es relativa (desde el .md)
+        elif [[ "$img_decoded" == */* ]]; then       # Ruta relativa con directorios
+            img_abs_path="$md_dir/$img_decoded"
+        else                                        # Solo nombre de archivo
             img_abs_path="$md_dir/$img_decoded"
         fi
 
         # Verificar si la imagen existe en la ruta actual
-        if [[ ! -f "$img_abs_path" ]]; then
-            echo " [-] Ruta incorrecta: $img_ref"
+        if [[ -f "$img_abs_path" ]]; then
+            echo " [+] Ruta válida: $img_ref"
+        else
+            echo " [-] Ruta inválida: $img_ref"
             
             # Buscar la imagen recursivamente desde el directorio del .md
-            found_img=$(find "$md_dir" -type f -name "$(basename "$img_decoded")" | head -n 1)
-            
-            if [[ -n "$found_img" ]]; then
-                # Calcular nueva ruta relativa
-                new_relative=$(realpath --relative-to="$md_dir" "$found_img" | sed 's/ /%20/g')
+            img_filename=$(basename "$img_decoded")
+            found_path=$(find "$md_dir" -type f -name "$img_filename" | head -n 1)
+
+            if [[ -n "$found_path" ]]; then
+                # Calcular nueva ruta relativa (con codificación URL)
+                new_relative=$(calculate_relative_path "$md_dir" "$found_path")
                 
-                # Reemplazar en el archivo .md
-                sed -i "s|!\[\]($img_ref)|![]($new_relative)|g" "$file"
+                # Reemplazar en el archivo .md (escapando caracteres para sed)
+                old_ref_escaped=$(echo "$img_ref" | sed 's/[\/&]/\\&/g')
+                new_ref_escaped=$(echo "$new_relative" | sed 's/[\/&]/\\&/g')
+                
+                sed -i "s|!\[\]($old_ref_escaped)|![]($new_ref_escaped)|g" "$md_file"
                 echo " [+] Corregido: $img_ref ? $new_relative"
             else
-                echo " [!] Imagen no encontrada: $img_decoded"
+                echo " [!] Imagen no encontrada: $img_filename"
             fi
-        else
-            echo " [?] Ruta válida: $img_ref"
         fi
     done
 done
