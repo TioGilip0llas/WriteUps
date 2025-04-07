@@ -1,52 +1,24 @@
 {
   "main": {
-    "id": "946a9b61e4f5ee3f",
+    "id": "4b061d2d755cca3b",
     "type": "split",
     "children": [
       {
-        "id": "5ab32adc9e298663",
+        "id": "0f64c30fbd5f8219",
         "type": "tabs",
         "children": [
           {
-            "id": "f510560f31b09b12",
+            "id": "4a088cc73fe8db99",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Apuntes/Simulación de Adversarios/BAS & PICUS.md",
+                "file": "Mi TrackList de HackTricks/XSS.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "BAS & PICUS"
-            }
-          },
-          {
-            "id": "7299b2aed9eda36f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Apuntes/Simulación de Adversarios/Fundamentals of Continuous Security Validation.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Fundamentals of Continuous Security Validation"
-            }
-          },
-          {
-            "id": "ddd49ecd4d39cee6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Apuntes/Simulación de Adversarios/The Absolute Beginners Guide to MITRE ATT&CK.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "The Absolute Beginners Guide to MITRE ATT&CK"
+              "title": "XSS"
             }
           }
         ]
@@ -55,15 +27,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "f65655320ba60657",
+    "id": "80c32c518006d402",
     "type": "split",
     "children": [
       {
-        "id": "36cfab43957e1144",
+        "id": "7fc634acd9877f02",
         "type": "tabs",
         "children": [
           {
-            "id": "c0a1f389d2d5ed0b",
+            "id": "4a36b73a0cbe29cd",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -76,7 +48,7 @@
             }
           },
           {
-            "id": "79b068b2fe75ef45",
+            "id": "28134bca97b835b1",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -89,11 +61,11 @@
                 "sortOrder": "alphabetical"
               },
               "icon": "lucide-search",
-              "title": "Buscar"
+              "title": "Search"
             }
           },
           {
-            "id": "dda878c981da6eee",
+            "id": "b30efdcc625be88d",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -106,23 +78,23 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 314.5
   },
   "right": {
-    "id": "eae82d5b2aa62d9b",
+    "id": "021a802daf0b2663",
     "type": "split",
     "children": [
       {
-        "id": "4ff61cbf4223c9ce",
+        "id": "301d6174cf6271be",
         "type": "tabs",
         "children": [
           {
-            "id": "a5e395445e3076a7",
+            "id": "b37dfac54537a74a",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Kioptrix Lvl 1.md",
+                "file": "Domain.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -132,46 +104,51 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Kioptrix Lvl 1"
+              "title": "Backlinks for Domain"
             }
           },
           {
-            "id": "60f25ae4ee006a2f",
+            "id": "08008434551a968a",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Kioptrix Lvl 1.md",
+                "file": "Dockerlabs/Injection/Injection.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Kioptrix Lvl 1"
+              "title": "Outgoing links from Injection"
             }
           },
           {
-            "id": "134f83bd2ae496c5",
+            "id": "896b7b777b925db4",
             "type": "leaf",
             "state": {
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
-                "useHierarchy": true
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-tags",
               "title": "Tags"
             }
           },
           {
-            "id": "a06c1a32ee23b596",
+            "id": "1e78d34be843ed72",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Kioptrix Lvl 1.md"
+                "file": "Dockerlabs/Injection/Injection.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Kioptrix Lvl 1"
+              "title": "Outline of Injection"
             }
           }
         ]
@@ -191,54 +168,52 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "f510560f31b09b12",
+  "active": "4a088cc73fe8db99",
   "lastOpenFiles": [
-    "Apuntes/Simulación de Adversarios/Fundamentals of Continuous Security Validation.md",
-    "Apuntes/Simulación de Adversarios/The Absolute Beginners Guide to MITRE ATT&CK.md",
-    "Pasted image 20250404133633.png",
-    "Pasted image 20250404133611.png",
-    "Apuntes/Simulación de Adversarios/BAS & PICUS.md",
+    "VulnHub/SafeHarbor.md",
+    "PortSwigger/SQLi con delay/Explotación de vulnerabilidad Blind SQLi con delay.md",
+    "VulnHub/images/images-safeharbor/Pasted image 20250407145704.png",
+    "VulnHub/images",
+    "VulnHub/images/images-safeharbor",
+    "Apuntes/Pasted image 20250404133633.png",
     "Mi TrackList de HackTricks/1Notas.md",
-    "Apuntes/Simulación de Adversarios/images-AdversarySimulation/Pasted image 20250403163319.png",
-    "Apuntes/Simulación de Adversarios/images-AdversarySimulation/Pasted image 20250403162923.png",
-    "Mi TrackList de HackTricks/XSS.md",
-    "Mi TrackList de HackTricks/x64 cheat-sheet.md",
     "Mi TrackList de HackTricks/Principales Comandos Equivalencias.md",
-    "Apuntes",
-    "Apuntes/Simulación de Adversarios/images-AdversarySimulation",
-    "Apuntes/Simulación de Adversarios",
-    "Apuntes/Simulación de Adversarios/images-AdversarySimulation/Pasted image 20250404110402.png",
-    "Apuntes/Simulación de Adversarios/images-AdversarySimulation/Pasted image 20250404115532.png",
-    "Apuntes/Simulación de Adversarios/images-AdversarySimulation/Pasted image 20250404115456.png",
-    "Apuntes/Simulación de Adversarios/images-AdversarySimulation/Pasted image 20250404115237.png",
-    "HackTheBox/Tier 0/Redeemer.md",
-    "PortSwigger/XSS (Cross-Site Scripting)/XSS Almacenado.md",
-    "PortSwigger/XSS (Cross-Site Scripting)/Index XSS.md",
+    "SafeHarbor",
+    "Apuntes/Pasted image 20250404133611.png",
+    "Vulns (documentción)/Anonymous.md",
+    "Vulns (documentción)",
+    "PortSwigger/SQLi con delay/Pasted image 20250218175044.png",
+    "PortSwigger/SQLi con delay/Pasted image 20250218174335.png",
+    "PortSwigger/SQLi con delay/Pasted image 20250218170815.png",
+    "PortSwigger/SQLi con delay/Pasted image 20250218170802.png",
+    "PortSwigger/SQLi con delay/Pasted image 20250218170436.png",
+    "PortSwigger/SQLi con delay/Pasted image 20250218165751.png",
+    "PortSwigger/SQLi con delay/Pasted image 20250218165548.png",
+    "VulnHub/Kioptrix Lvl 1.2/Kioptrix Lvl 1.2.md",
+    "VulnHub/Kioptrix Lvl 1.1/Kioptrix Lvl 1.1.md",
+    "VulnHub/Kioptrix Lvl 1/Kioptrix Lvl 1.md",
+    "VulnHub/HackLAB Vulnix/HackLAB Vulnix.md",
+    "VulnHub/Brainpan 1/Brainpan 1.md",
+    "PortSwigger/SQLi con delay",
+    "VulnHub/Kioptrix Lvl 1.2",
+    "VulnHub/Kioptrix Lvl 1.1",
+    "VulnHub/Kioptrix Lvl 1",
+    "VulnHub/HackLAB Vulnix",
+    "VulnHub/Brainpan 1",
     "PortSwigger/XSS (Cross-Site Scripting)/XSS Reflejado.md",
     "PortSwigger/XSS (Cross-Site Scripting)/XSS Introducción.md",
-    "Introducción XSS.md",
-    "PortSwigger/LLM Web Atacks.md",
-    "Introducción.md",
-    "PortSwigger/XSS (Cross-Site Scripting)",
-    "PortSwigger/XXE Injection (XML External Entity).md",
-    "Kioptrix Lvl 1.1/Pasted image 20250119223606.png",
-    "SQLi con delay/Explotación de vulnerabilidad Blind SQLi con delay.md",
-    "Fundamentos de Pentesting.md",
-    "SQLi con delay",
-    "SQLi con delay/Pasted image 20250218170802.png",
-    "Kioptrix Lvl 1.2/Kioptrix Lvl 1.2.md",
-    "2025-02-18.md",
-    "Sin título.canvas",
-    "Brainpan 1/Brainpan 1.md",
-    "Kioptrix Lvl 1.1/Kioptrix Lvl 1.1.md",
-    "Kioptrix Lvl 1/Kioptrix Lvl 1.md",
-    "HackLAB Vulnix/HackLAB Vulnix.md",
-    "Kioptrix 2014/Kioptrix 2014.md",
-    "Brainpan 1",
-    "HackLAB Vulnix",
-    "Kioptrix 2014",
-    "Kioptrix Lvl 1.3",
-    "Kioptrix Lvl 1.2",
-    "Untitled.canvas"
+    "PortSwigger/XSS (Cross-Site Scripting)/XSS Almacenado.md",
+    "PortSwigger/XSS (Cross-Site Scripting)/Index XSS.md",
+    "Mi TrackList de HackTricks/XSS.md",
+    "Apuntes/Simulación de Adversarios/The Absolute Beginners Guide to MITRE ATT&CK.md",
+    "Apuntes/Simulación de Adversarios/Fundamentals of Continuous Security Validation.md",
+    "Apuntes/Simulación de Adversarios/BAS & PICUS.md",
+    "PruebasScitum/Aeromex/Reporte Técnico de Pruebas de Penetración (Aeromex).md",
+    "PruebasScitum/Reporte Técnico de Pruebas de Penetración (Mysite).md",
+    "HackTheBox/Tier 0/Dancing.md",
+    "HackersLabs/Pacharan/Pacharan.md",
+    "HackTheBox/Tier 0/Fawn.md",
+    "HackTheBox/Tier 0/Meow.md",
+    "HackTheBox/Tier 0/Redeemer.md"
   ]
 }
