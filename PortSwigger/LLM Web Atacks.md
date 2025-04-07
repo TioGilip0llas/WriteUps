@@ -33,9 +33,9 @@ La integración de un LLM con una API depende de su estructura para definir un f
 Este flujo de trabajo puede tener implicaciones de seguridad, ya que el LLM está haciendo su trabajo en nombre del cliente, aunque este no sepa que esta llamando a estas API's. Al cliente se le debió de presentar un paso de confirmación antes de que el LLM llame a la API externa.
 
 ### Mapeando el ataque a la LLM API
-El termino *excessive agency* se refiere a cuando un LLM tiene acceso a un API con información confidencial y cabe la persuasión para acceder a esta con el API de su agrado.
+El termino *excessive agency* se refiere a cuando un LLM tiene acceso a información confidencial y cabe la persuasión para acceder a esta, con el API de su agrado.
 Si el API no brinda la información solicitada, se le someterá a un contexto maldoso y se le volverá a preguntar.
-Por ejemplo si le decimos que somos los aquellos desarrolladores de LLM's en modo inspector marino, nos d̶e̶j̶a̶r̶á̶ ̶v̶e̶r̶ ̶s̶u̶ ̶c̶o̶n̶c̶h̶a̶ concederá mayor privilegio.
+Por ejemplo, si le decimos que somos los aquellos desarrolladores de LLM's en modo inspector marino, nos ~~dejará ver su concha~~ concederá mayor privilegio.
 
 
 

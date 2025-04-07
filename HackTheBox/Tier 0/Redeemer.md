@@ -1,7 +1,7 @@
 # Reedemer WriteUp
-[[Redis]] 
-[[Anonymous]]
-[[Bases de Datos]]
+#Redis 
+#Anonymous
+#BasesDeDatos
 
 ```java
 IP atacante: 10.10.16.133
@@ -90,24 +90,23 @@ t3L4c0M15t3eNT3r4953eb03e1d2b376
 ```
 
 Preguntas
-
 1. ¿Qué puerto TCP está abierto en la máquina?
-	6379
+	  6379
 2. ¿Qué servicio se ejecuta en el puerto abierto de la máquina?
-	redis
+	  redis
 3. ¿Qué tipo de base de datos es Redis? Elija entre las siguientes opciones: (i) Base de datos en memoria, (ii) Base de datos tradicional.
-	i
+	  i
 4. ¿Qué utilidad de línea de comandos se utiliza para interactuar con el servidor Redis? Introduzca el nombre del programa que introduciría en la terminal sin argumentos.
-	redis-cli
+	  redis-cli
 5. ¿Qué flag se utiliza con la utilidad de línea de comandos de Redis para especificar el nombre de host?
-	-h
+	  -h
 6. Una vez conectado a un servidor Redis, ¿qué comando se utiliza para obtener la información y las estadísticas sobre el servidor Redis?
-	info
+	  info
 7. ¿Cuál es la versión del servidor Redis que se utiliza en la máquina de destino?
-	5.0.7
+	  5.0.7
 8. ¿Qué comando se utiliza para seleccionar la base de datos deseada en Redis?
-	select
+	  select
 9. ¿Cuántas claves hay dentro de la base de datos con índice 0?
-	En la salida obtuvimos 5 por la modificación, la respuesta esperada es 4.
+	  En la salida obtuvimos 5 por la modificación, la respuesta esperada es 4.
 10. ¿Qué comando se utiliza para obtener todas las claves de una base de datos?
-	keys *
+	  keys *

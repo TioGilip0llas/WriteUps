@@ -4,21 +4,49 @@
     "type": "split",
     "children": [
       {
-        "id": "038b917b2a2452dc",
+        "id": "5ab32adc9e298663",
         "type": "tabs",
         "children": [
           {
-            "id": "57085ad25bd4c35d",
+            "id": "f510560f31b09b12",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "PortSwigger/XSS (Cross-Site Scripting).md",
+                "file": "Apuntes/Simulación de Adversarios/BAS & PICUS.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "XSS (Cross-Site Scripting)"
+              "title": "BAS & PICUS"
+            }
+          },
+          {
+            "id": "7299b2aed9eda36f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Apuntes/Simulación de Adversarios/Fundamentals of Continuous Security Validation.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Fundamentals of Continuous Security Validation"
+            }
+          },
+          {
+            "id": "ddd49ecd4d39cee6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Apuntes/Simulación de Adversarios/The Absolute Beginners Guide to MITRE ATT&CK.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "The Absolute Beginners Guide to MITRE ATT&CK"
             }
           }
         ]
@@ -163,24 +191,42 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "57085ad25bd4c35d",
+  "active": "f510560f31b09b12",
   "lastOpenFiles": [
+    "Apuntes/Simulación de Adversarios/Fundamentals of Continuous Security Validation.md",
+    "Apuntes/Simulación de Adversarios/The Absolute Beginners Guide to MITRE ATT&CK.md",
+    "Pasted image 20250404133633.png",
+    "Pasted image 20250404133611.png",
+    "Apuntes/Simulación de Adversarios/BAS & PICUS.md",
+    "Mi TrackList de HackTricks/1Notas.md",
+    "Apuntes/Simulación de Adversarios/images-AdversarySimulation/Pasted image 20250403163319.png",
+    "Apuntes/Simulación de Adversarios/images-AdversarySimulation/Pasted image 20250403162923.png",
+    "Mi TrackList de HackTricks/XSS.md",
+    "Mi TrackList de HackTricks/x64 cheat-sheet.md",
+    "Mi TrackList de HackTricks/Principales Comandos Equivalencias.md",
+    "Apuntes",
+    "Apuntes/Simulación de Adversarios/images-AdversarySimulation",
+    "Apuntes/Simulación de Adversarios",
+    "Apuntes/Simulación de Adversarios/images-AdversarySimulation/Pasted image 20250404110402.png",
+    "Apuntes/Simulación de Adversarios/images-AdversarySimulation/Pasted image 20250404115532.png",
+    "Apuntes/Simulación de Adversarios/images-AdversarySimulation/Pasted image 20250404115456.png",
+    "Apuntes/Simulación de Adversarios/images-AdversarySimulation/Pasted image 20250404115237.png",
+    "HackTheBox/Tier 0/Redeemer.md",
+    "PortSwigger/XSS (Cross-Site Scripting)/XSS Almacenado.md",
+    "PortSwigger/XSS (Cross-Site Scripting)/Index XSS.md",
+    "PortSwigger/XSS (Cross-Site Scripting)/XSS Reflejado.md",
+    "PortSwigger/XSS (Cross-Site Scripting)/XSS Introducción.md",
+    "Introducción XSS.md",
     "PortSwigger/LLM Web Atacks.md",
-    "PortSwigger/XSS (Cross-Site Scripting).md",
+    "Introducción.md",
+    "PortSwigger/XSS (Cross-Site Scripting)",
+    "PortSwigger/XXE Injection (XML External Entity).md",
     "Kioptrix Lvl 1.1/Pasted image 20250119223606.png",
     "SQLi con delay/Explotación de vulnerabilidad Blind SQLi con delay.md",
     "Fundamentos de Pentesting.md",
     "SQLi con delay",
     "SQLi con delay/Pasted image 20250218170802.png",
-    "SQLi con delay/Pasted image 20250218170815.png",
-    "SQLi con delay/Pasted image 20250218174335.png",
-    "SQLi con delay/Pasted image 20250218175044.png",
-    "SQLi con delay/Pasted image 20250218165548.png",
-    "SQLi con delay/Pasted image 20250218161235.png",
-    "SQLi con delay/Pasted image 20250218153115.png",
     "Kioptrix Lvl 1.2/Kioptrix Lvl 1.2.md",
-    "SQLi con delay/Pasted image 20250218170436.png",
-    "SQLi con delay/Pasted image 20250218165751.png",
     "2025-02-18.md",
     "Sin título.canvas",
     "Brainpan 1/Brainpan 1.md",
@@ -189,21 +235,10 @@
     "HackLAB Vulnix/HackLAB Vulnix.md",
     "Kioptrix 2014/Kioptrix 2014.md",
     "Brainpan 1",
-    "Kioptrix Lvl 1.3/Kioptrix Lvl 1.3.md",
-    "FristiLeaks 1.3.md",
     "HackLAB Vulnix",
-    "Stapler 1.md",
     "Kioptrix 2014",
     "Kioptrix Lvl 1.3",
     "Kioptrix Lvl 1.2",
-    "Untitled/desktop.ini",
-    "Kioptrix Lvl 1.1",
-    "Kioptrix Lvl 1",
-    "2025-01-19.md",
-    "Untitled.canvas",
-    "~$optrix Lvl 1.md",
-    "Welcome.md",
-    "create a link.md",
-    "desktop.ini"
+    "Untitled.canvas"
   ]
 }
