@@ -8,17 +8,17 @@
         "type": "tabs",
         "children": [
           {
-            "id": "4a088cc73fe8db99",
+            "id": "916b232c903ba996",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Mi TrackList de HackTricks/XSS.md",
+                "file": "VulnHub/SafeHarbor.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "XSS"
+              "title": "SafeHarbor"
             }
           }
         ]
@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 314.5
+    "width": 314.5,
+    "collapsed": true
   },
   "right": {
     "id": "021a802daf0b2663",
@@ -168,15 +169,23 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "4a088cc73fe8db99",
+  "active": "916b232c903ba996",
   "lastOpenFiles": [
+    "Dockerlabs/Medio-Fileception.md",
+    "Dockerlabs/Medio-Eclipse.md",
+    "Dockerlabs/Medio-Domain.md",
+    "Dockerlabs/Medio-Hidden.md",
+    "Dockerlabs/Medio-Fooding.md",
     "VulnHub/SafeHarbor.md",
+    "Pasted image 20250504220910.png",
+    "Mi TrackList de HackTricks/1Notas.md",
+    "HackTheBox/Cicada/Cicada.md",
+    "Mi TrackList de HackTricks/XSS.md",
     "PortSwigger/SQLi con delay/Explotación de vulnerabilidad Blind SQLi con delay.md",
     "VulnHub/images/images-safeharbor/Pasted image 20250407145704.png",
     "VulnHub/images",
     "VulnHub/images/images-safeharbor",
     "Apuntes/Pasted image 20250404133633.png",
-    "Mi TrackList de HackTricks/1Notas.md",
     "Mi TrackList de HackTricks/Principales Comandos Equivalencias.md",
     "SafeHarbor",
     "Apuntes/Pasted image 20250404133611.png",
@@ -188,7 +197,6 @@
     "PortSwigger/SQLi con delay/Pasted image 20250218170802.png",
     "PortSwigger/SQLi con delay/Pasted image 20250218170436.png",
     "PortSwigger/SQLi con delay/Pasted image 20250218165751.png",
-    "PortSwigger/SQLi con delay/Pasted image 20250218165548.png",
     "VulnHub/Kioptrix Lvl 1.2/Kioptrix Lvl 1.2.md",
     "VulnHub/Kioptrix Lvl 1.1/Kioptrix Lvl 1.1.md",
     "VulnHub/Kioptrix Lvl 1/Kioptrix Lvl 1.md",
@@ -204,16 +212,10 @@
     "PortSwigger/XSS (Cross-Site Scripting)/XSS Introducción.md",
     "PortSwigger/XSS (Cross-Site Scripting)/XSS Almacenado.md",
     "PortSwigger/XSS (Cross-Site Scripting)/Index XSS.md",
-    "Mi TrackList de HackTricks/XSS.md",
     "Apuntes/Simulación de Adversarios/The Absolute Beginners Guide to MITRE ATT&CK.md",
     "Apuntes/Simulación de Adversarios/Fundamentals of Continuous Security Validation.md",
     "Apuntes/Simulación de Adversarios/BAS & PICUS.md",
     "PruebasScitum/Aeromex/Reporte Técnico de Pruebas de Penetración (Aeromex).md",
-    "PruebasScitum/Reporte Técnico de Pruebas de Penetración (Mysite).md",
-    "HackTheBox/Tier 0/Dancing.md",
-    "HackersLabs/Pacharan/Pacharan.md",
-    "HackTheBox/Tier 0/Fawn.md",
-    "HackTheBox/Tier 0/Meow.md",
-    "HackTheBox/Tier 0/Redeemer.md"
+    "PruebasScitum/Reporte Técnico de Pruebas de Penetración (Mysite).md"
   ]
 }
