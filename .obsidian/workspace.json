@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "0f64c30fbd5f8219",
+        "id": "f39d0b337ec570d5",
         "type": "tabs",
         "children": [
           {
-            "id": "916b232c903ba996",
+            "id": "baafbbf68909dbfb",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -19,6 +19,20 @@
               },
               "icon": "lucide-file",
               "title": "SafeHarbor"
+            }
+          },
+          {
+            "id": "b9db68f391edf455",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "VulnHub/FristiLeaks 1.3.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "FristiLeaks 1.3"
             }
           }
         ]
@@ -53,7 +67,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#GanarControl",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -61,7 +75,7 @@
                 "sortOrder": "alphabetical"
               },
               "icon": "lucide-search",
-              "title": "Search"
+              "title": "Buscar"
             }
           },
           {
@@ -78,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 314.5,
-    "collapsed": true
+    "width": 309.5124969482422
   },
   "right": {
     "id": "021a802daf0b2663",
@@ -169,53 +182,53 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "916b232c903ba996",
+  "active": "4a36b73a0cbe29cd",
   "lastOpenFiles": [
-    "Dockerlabs/Medio-Fileception.md",
-    "Dockerlabs/Medio-Eclipse.md",
-    "Dockerlabs/Medio-Domain.md",
-    "Dockerlabs/Medio-Hidden.md",
-    "Dockerlabs/Medio-Fooding.md",
+    "HackTheBox/Tier 0/Redeemer.md",
+    "HackTheBox/Tier 0/Meow.md",
+    "PortSwigger/XSS (Cross-Site Scripting)/XSS Introducción.md",
+    "PortSwigger/Shell Injection (OS Command Injection).md",
+    "PortSwigger/LLM Web Atacks.md",
     "VulnHub/SafeHarbor.md",
-    "Pasted image 20250504220910.png",
-    "Mi TrackList de HackTricks/1Notas.md",
+    "PortSwigger/CSRF (Cross-Site Request Forgery).md",
+    "VulnHub/FristiLeaks 1.3.md",
+    "HackTheBox/Tier 0/Fawn.md",
+    "HackTheBox/Tier 0/Dancing.md",
+    "PortSwigger/SSRF (Server-Side Request Forgery).md",
+    "VulnHub/Kioptrix Level 1.3 (4).md",
+    "Credenciales débiles.md",
     "HackTheBox/Cicada/Cicada.md",
     "Mi TrackList de HackTricks/XSS.md",
+    "Mi TrackList de HackTricks/x64 cheat-sheet.md",
+    "Mi TrackList de HackTricks/Principales Comandos Equivalencias.md",
     "PortSwigger/SQLi con delay/Explotación de vulnerabilidad Blind SQLi con delay.md",
+    "PortSwigger/XSS (Cross-Site Scripting)/XSS Reflejado.md",
+    "PortSwigger/XSS (Cross-Site Scripting)/XSS Almacenado.md",
+    "PortSwigger/XSS (Cross-Site Scripting)/Index XSS.md",
+    "PortSwigger/XXE Injection (XML External Entity).md",
+    "Dockerlabs/images/images-fileception/Pasted image 20250319115319.png",
+    "Dockerlabs/Medio-Fileception.md",
+    "Dockerlabs/images/images-fileception/Pasted image 20250319115319 1.png",
+    "Dockerlabs/Medio-Fooding.md",
+    "Dockerlabs/Medio-Hackpenguin.md",
+    "Dockerlabs/Medio-Hidden.md",
+    "Pasted image 20250504220910.png",
     "VulnHub/images/images-safeharbor/Pasted image 20250407145704.png",
     "VulnHub/images",
     "VulnHub/images/images-safeharbor",
     "Apuntes/Pasted image 20250404133633.png",
-    "Mi TrackList de HackTricks/Principales Comandos Equivalencias.md",
     "SafeHarbor",
     "Apuntes/Pasted image 20250404133611.png",
-    "Vulns (documentción)/Anonymous.md",
     "Vulns (documentción)",
     "PortSwigger/SQLi con delay/Pasted image 20250218175044.png",
     "PortSwigger/SQLi con delay/Pasted image 20250218174335.png",
     "PortSwigger/SQLi con delay/Pasted image 20250218170815.png",
     "PortSwigger/SQLi con delay/Pasted image 20250218170802.png",
-    "PortSwigger/SQLi con delay/Pasted image 20250218170436.png",
-    "PortSwigger/SQLi con delay/Pasted image 20250218165751.png",
-    "VulnHub/Kioptrix Lvl 1.2/Kioptrix Lvl 1.2.md",
-    "VulnHub/Kioptrix Lvl 1.1/Kioptrix Lvl 1.1.md",
-    "VulnHub/Kioptrix Lvl 1/Kioptrix Lvl 1.md",
-    "VulnHub/HackLAB Vulnix/HackLAB Vulnix.md",
-    "VulnHub/Brainpan 1/Brainpan 1.md",
     "PortSwigger/SQLi con delay",
     "VulnHub/Kioptrix Lvl 1.2",
     "VulnHub/Kioptrix Lvl 1.1",
     "VulnHub/Kioptrix Lvl 1",
     "VulnHub/HackLAB Vulnix",
-    "VulnHub/Brainpan 1",
-    "PortSwigger/XSS (Cross-Site Scripting)/XSS Reflejado.md",
-    "PortSwigger/XSS (Cross-Site Scripting)/XSS Introducción.md",
-    "PortSwigger/XSS (Cross-Site Scripting)/XSS Almacenado.md",
-    "PortSwigger/XSS (Cross-Site Scripting)/Index XSS.md",
-    "Apuntes/Simulación de Adversarios/The Absolute Beginners Guide to MITRE ATT&CK.md",
-    "Apuntes/Simulación de Adversarios/Fundamentals of Continuous Security Validation.md",
-    "Apuntes/Simulación de Adversarios/BAS & PICUS.md",
-    "PruebasScitum/Aeromex/Reporte Técnico de Pruebas de Penetración (Aeromex).md",
-    "PruebasScitum/Reporte Técnico de Pruebas de Penetración (Mysite).md"
+    "VulnHub/Brainpan 1"
   ]
 }

