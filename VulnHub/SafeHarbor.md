@@ -4,18 +4,23 @@
 - Inyección de comandos en GRUB
 - Configuración de IP manual
 - Sugerencia resolución DNS
+
 [🦔](#Reconocimiento) #Reconocimiento
 - Escaneo usual (IP, TTL, Puertos, Versiones y Servicios, Launchpad)
 - Reconocimiento Web
+
 [🦔](#VulnGathering) #VulnGathering
 - Instalación de `pyenv` + ejecución de versión antigua de python
 - Enumeración de directorios
+
 [🦔](#Engaño) #Engaño
 - Explicación `SQLi` clásica + inyección básica.
+
 [🦔](#Explotación) #Explotación
 - Manipulación de parámetros del servidor
 - Visualización de código PHP con wrappers base 64 + obtención de credenciales
 - Remote File Inclusion +Remote Code Execution (webshell)
+
 [🦔](#GanarControl) #GanarControl
 - Acceso a mysql con credenciales filtradas
 - Desprendimiento de sesión con `nohup`
@@ -26,6 +31,7 @@
 - Enlistar contenedores con curl
 - Montación de contenedor privilegiado + RCE
 - Creación de usuario + copia de ssh ky en authorized_keys
+
 [🦔](#Resultados-PoC) #Resultados-PoC
 
 
