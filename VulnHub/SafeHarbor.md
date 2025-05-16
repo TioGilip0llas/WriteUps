@@ -30,7 +30,7 @@
 - Enrutamiento de tráfico con socat
 - Enlistar contenedores con curl
 - Montación de contenedor privilegiado + RCE
-- Creación de usuario + copia de ssh ky en authorized_keys
+- Creación de usuario + copia de ssh key en authorized_keys
 
 [🦔](#Resultados-PoC) #Resultados-PoC
 
