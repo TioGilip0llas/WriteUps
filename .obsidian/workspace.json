@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "04a8aaa30a94dee3",
+        "id": "748d2b1e4014383b",
         "type": "tabs",
         "children": [
           {
-            "id": "1dfb61942ba826f7",
+            "id": "2bce58686c509b94",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Medio-Asucar.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "Nueva pestaña"
+              "title": "Medio-Asucar"
             }
           }
         ]
@@ -74,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 309.5124969482422
+    "width": 309.5124969482422,
+    "collapsed": true
   },
   "right": {
     "id": "021a802daf0b2663",
@@ -164,24 +169,24 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "1dfb61942ba826f7",
+  "active": "2bce58686c509b94",
   "lastOpenFiles": [
-    "VulnHub/FristiLeaks 1.3.md",
     "Metodología.md",
+    "Medio-Asucar.md",
+    "VulnHub/FristiLeaks 1.3.md",
+    "Dockerlabs/Medio-Hidden.md",
+    "Dockerlabs/Medio-Fileception.md",
+    "Dockerlabs/Medio-Domain.md",
+    "Dockerlabs/Medio-Eclipse.md",
     "VulnHub/Kioptrix Level 1.3 (4).md",
-    "Sin título.md",
     "Mi TrackList de HackTricks/Travesuras con python.md",
     "VulnHub/SafeHarbor.md",
     "HackTheBox/Tier 0/Redeemer.md",
-    "Dockerlabs/Medio-Fileception.md",
     "Dockerlabs/Medio-Pyred.md",
     "Dockerlabs/Muy Fácil-Borazuwarahctf.md",
     "Dockerlabs/Medio-Inclusion.md",
-    "Dockerlabs/Medio-Hidden.md",
     "Dockerlabs/Medio-Hackpenguin.md",
     "Dockerlabs/Medio-Fooding.md",
-    "Dockerlabs/Medio-Eclipse.md",
-    "Dockerlabs/Medio-Domain.md",
     "Mi TrackList de HackTricks/SQLi cli.md",
     "PortSwigger/XSS (Cross-Site Scripting)/XSS Reflejado.md",
     "Mi TrackList de HackTricks/XSS.md",

@@ -20,6 +20,7 @@ Pega este código a tu reporte:
 - 
 
 [🦔](#Resultados-PoC) #Resultados-PoC
+- Resumen de hallazgos
 
 _Presiona al erizo para dirigirte al contenido._
 
@@ -64,6 +65,13 @@ Un escaneo más detallado se ejecutó, para identificar versiones y servicios:
 ## Explotación
 ## GanarControl
 ## Resultados-PoC
+### Hallazgos de postura de seguridad
+**Reconocimiento:**
+**VulnGathering:**
+**Engaño:**
+**Explotación:**
+**GanarControl:**
+**Resultados-PoC:**
 ```
 
 ---
