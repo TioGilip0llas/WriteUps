@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Medio-Asucar.md",
+                "file": "DockerLabs/Medio-Asucar.md",
                 "mode": "source",
                 "source": false
               },
@@ -78,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 309.5124969482422,
-    "collapsed": true
+    "width": 309.5124969482422
   },
   "right": {
     "id": "021a802daf0b2663",
@@ -169,24 +168,24 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "2bce58686c509b94",
+  "active": "4a36b73a0cbe29cd",
   "lastOpenFiles": [
     "Metodología.md",
-    "Medio-Asucar.md",
+    "DockerLabs/Medio-Asucar.md",
     "VulnHub/FristiLeaks 1.3.md",
-    "Dockerlabs/Medio-Hidden.md",
-    "Dockerlabs/Medio-Fileception.md",
-    "Dockerlabs/Medio-Domain.md",
-    "Dockerlabs/Medio-Eclipse.md",
+    "DockerLabs/Medio-Hidden.md",
+    "DockerLabs/Medio-Fileception.md",
+    "DockerLabs/Medio-Domain.md",
+    "DockerLabs/Medio-Eclipse.md",
     "VulnHub/Kioptrix Level 1.3 (4).md",
     "Mi TrackList de HackTricks/Travesuras con python.md",
     "VulnHub/SafeHarbor.md",
     "HackTheBox/Tier 0/Redeemer.md",
-    "Dockerlabs/Medio-Pyred.md",
-    "Dockerlabs/Muy Fácil-Borazuwarahctf.md",
-    "Dockerlabs/Medio-Inclusion.md",
-    "Dockerlabs/Medio-Hackpenguin.md",
-    "Dockerlabs/Medio-Fooding.md",
+    "DockerLabs/Medio-Pyred.md",
+    "DockerLabs/Muy Fácil-Borazuwarahctf.md",
+    "DockerLabs/Medio-Inclusion.md",
+    "DockerLabs/Medio-Hackpenguin.md",
+    "DockerLabs/Medio-Fooding.md",
     "Mi TrackList de HackTricks/SQLi cli.md",
     "PortSwigger/XSS (Cross-Site Scripting)/XSS Reflejado.md",
     "Mi TrackList de HackTricks/XSS.md",
@@ -197,7 +196,7 @@
     "HackTheBox/Tier 0/Meow.md",
     "PortSwigger/Shell Injection (OS Command Injection).md",
     "PortSwigger/LLM Web Atacks.md",
-    "Dockerlabs/images/images-fileception/Pasted image 20250319115319.png",
+    "DockerLabs/images/images-fileception/Pasted image 20250319115319.png",
     "Dockerlabs/images/images-fileception/Pasted image 20250319115319 1.png",
     "Pasted image 20250504220910.png",
     "VulnHub/images/images-safeharbor/Pasted image 20250407145704.png",

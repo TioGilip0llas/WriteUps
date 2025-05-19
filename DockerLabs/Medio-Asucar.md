@@ -32,7 +32,7 @@ Nombre: Asucar
 Autor: The Hackers Labs
 Objetivo: Control SO + root
 Dificultad: Medio
-Descargado de: https://mega.nz/file/sCtDHbjS#3FdcMCEsKE5Ea0taLVkx9Nt9Oj43fqm4Q6RBKCTOVac
+Descargado de: mega.nz/file/sCtDHbjS#3FdcMCEsKE5Ea0taLVkx9Nt9Oj43fqm4Q6RBKCTOVac
 writeup: kmxbay
 ```
 
@@ -116,7 +116,8 @@ $dirb http://172.17.0.2
 ==> DIRECTORY: http://172.17.0.2/wp-includes/                                    
 + http://172.17.0.2/xmlrpc.php (CODE:405|SIZE:42)                                
 [...]
-+ http://172.17.0.2/wp-admin/admin.php (CODE:302|SIZE:0)                         [...]
++ http://172.17.0.2/wp-admin/admin.php (CODE:302|SIZE:0)
+[...]
 ---- Entering directory: http://172.17.0.2/wp-content/ ----
 + http://172.17.0.2/wp-content/index.php (CODE:200|SIZE:0)
 ---- Entering directory: http://172.17.0.2/wp-content/languages/ ----
@@ -301,14 +302,18 @@ root@185c8bd9fa1e:~#
 - Versión antigua de wordpress
 - Código fuente filtrado en página principal
 - Acceso a panel de administración y directorios sensibles de wordpress
+
 **VulnGathering:**
 - Existencia de xmlrpc.php
 - Posible LFI, a través del tema twentytwentyfour.
 - RFI en plugin site-editor 1.1.1 **CVE-2018-7422**
+
 **Engaño:**
 - LFI con **CVE-2018-7422**
+
 **Explotación:**
 - Ataque por fuerza bruta SSH
+
 **GanarControl:**
 - Permisos inseguros para `/usr/bin/puttygen`
 
