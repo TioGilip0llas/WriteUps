@@ -1,11 +1,11 @@
 Pega este código a tu reporte:
 ``` markdown
-# Name (platform - dificultad) WriteUp Español
+# Name (plattform - dificultad) WriteUp Español
 [🦔](#PreRequerimientos) #PreRequerimientos
 - 
 
 [🦔](#Reconocimiento) #Reconocimiento
-- Escaneo usual (IP, TTL, Puertos, Versiones y Servicios, Launchpad)
+- Escaneo usual (IP, MAC, TTL, Puertos, Versiones y Servicios, Launchpad).
 
 [🦔](#VulnGathering) #VulnGathering
 - 
@@ -20,7 +20,7 @@ Pega este código a tu reporte:
 - 
 
 [🦔](#Resultados-PoC) #Resultados-PoC
-- Resumen de hallazgos
+- Resumen de hallazgos/vulnerabilidades.
 
 _Presiona al erizo para dirigirte al contenido._
 
@@ -34,7 +34,7 @@ Nombre:
 Autor: 
 Objetivo: 
 Dificultad: 
-Descargado de: 
+Plataforma: 
 '''
 
 Desde una conexión de red interna, el escenario de pruebas se compone de:
@@ -49,6 +49,8 @@ Para esta máquina se realizaron...
 
 ## Reconocimiento
 Se identificó la dirección IP de la máquina objetivo mediante `ARP-scan`:
+
+Sobre la [información de la dirección MAC](https://uic.io/es/mac/vendor/search/), se obtuvo lo siguiente:
 
 El equipo fue identificado como una máquina virtual de VMware.
 
@@ -67,11 +69,15 @@ Un escaneo más detallado se ejecutó, para identificar versiones y servicios:
 ## Resultados-PoC
 ### Hallazgos de postura de seguridad
 **Reconocimiento:**
+
 **VulnGathering:**
+
 **Engaño:**
+
 **Explotación:**
+
 **GanarControl:**
-**Resultados-PoC:**
+
 ```
 
 ---
