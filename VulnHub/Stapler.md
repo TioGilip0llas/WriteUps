@@ -144,7 +144,7 @@ PORT      STATE  SERVICE     VERSION
 |_http-server-header: Apache/2.4.18 (Ubuntu)
 ```
 
-Los hallados se encontraron vulnerables, el resumen de este hallazgo estará en [[#Hallazgos de postura de seguridad]].
+Los hallados se encontraron vulnerables, el resumen de este hallazgo estará en [[#Hallazgos%de%postura%de%seguridad]].
 ## VulnGathering
 Se comenzó con el acceso anónimo disponible en el puerto 21 y se encontró esta información:
 ```python
@@ -566,7 +566,7 @@ MySQL [wordpress]> select user_login,user_pass from wp_users;
 17 rows in set (0.009 sec)
 ```
 ## Explotación
-Por el lado de la fuerza bruta a servicios, se accedió a SSH con credenciales de usuario `SHayslett`, obtenidas en [[Stapler#Fuerza bruta a servicios]]
+Por el lado de la fuerza bruta a servicios, se accedió a SSH con credenciales de usuario `SHayslett`, obtenidas en [[Stapler#Fuerza%bruta%a%servicios]]
 ### Webshell desde reconocimiento web
 Se realizó una inyección SQL en un archivo acchesicle para ejecutar comandos:
 ```sql
