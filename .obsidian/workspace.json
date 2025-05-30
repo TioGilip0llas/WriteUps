@@ -170,12 +170,14 @@
   },
   "active": "1c2bc56a4644f602",
   "lastOpenFiles": [
-    "VulnHub/KioptrixLvl1.3-4.md",
+    "Misc/RCE on AWS (entry level).md",
     "README.md",
-    "VulnHub/FristiLeaks1.3.md",
-    "VulnHub/Stapler.md",
+    "Misc",
     "Metodología.md",
     "Kioptrix.md",
+    "VulnHub/KioptrixLvl1.3-4.md",
+    "VulnHub/FristiLeaks1.3.md",
+    "VulnHub/Stapler.md",
     "PortSwigger/XSS (Cross-Site Scripting)/Index XSS.md",
     "PortSwigger/XSS (Cross-Site Scripting)/XSS Reflejado.md",
     "Mi TrackList de HackTricks/Archivos comprimidos.md",
@@ -195,7 +197,6 @@
     "DockerLabs/Medio-Eclipse.md",
     "Mi TrackList de HackTricks/Travesuras con python.md",
     "HackTheBox/Tier 0/Redeemer.md",
-    "DockerLabs/Medio-Pyred.md",
     "DockerLabs/images/images-fileception/Pasted image 20250319115319.png",
     "Dockerlabs/images/images-fileception/Pasted image 20250319115319 1.png",
     "Pasted image 20250504220910.png",
@@ -214,7 +215,6 @@
     "VulnHub/Kioptrix Lvl 1.2",
     "VulnHub/Kioptrix Lvl 1.1",
     "VulnHub/Kioptrix Lvl 1",
-    "VulnHub/HackLAB Vulnix",
-    "VulnHub/Brainpan 1"
+    "VulnHub/HackLAB Vulnix"
   ]
 }
